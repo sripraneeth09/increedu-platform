@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InCreEdu - Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="login-styles.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        brand: { blue: '#4F8CFF', dark: '#1E3A8A', orange: '#FF8C42', success: '#10B981', bg: '#F8FAFC' }
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-out',
+                        'slide-left': 'slideLeft 0.5s ease-out',
+                        'slide-right': 'slideRight 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
+                        slideLeft: { '0%': { opacity: '0', transform: 'translateX(30px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } },
+                        slideRight: { '0%': { opacity: '0', transform: 'translateX(-30px)' }, '100%': { opacity: '1', transform: 'translateX(0)' } }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gradient-to-br from-brand-blue via-blue-50 to-brand-dark min-h-screen flex items-center justify-center px-4">
+
+    <!-- Background decorative elements -->
+    <div class="fixed top-0 left-0 w-96 h-96 bg-brand-blue/10 rounded-full -translate-x-1/2 -translate-y-1/2 pointer-events-none"></div>
+    <div class="fixed bottom-0 right-0 w-96 h-96 bg-brand-orange/10 rounded-full translate-x-1/2 translate-y-1/2 pointer-events-none"></div>
+
+    <div class="relative z-10 w-full max-w-md">
+        <!-- Header -->
+        <div class="text-center mb-8 animate-fade-in">
+            <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                <div class="w-14 h-14 bg-gradient-to-br from-brand-blue to-brand-dark rounded-xl flex items-center justify-center text-white font-bold">
+                    <i class="fas fa-compass text-2xl"></i>
+                </div>
+            </div>
+            <h1 class="text-4xl font-bold text-white mb-2">InCreEdu</h1>
+            <p class="text-blue-100">Discover Your Perfect Career</p>
+        </div>
+
+        <!-- Login Card -->
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden">
+            
+            <!-- Tab Navigation -->
+            <div class="grid grid-cols-2 border-b border-gray-200">
+                <button class="py-3 px-4 font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2 tab-btn active" data-tab="login-learner" onclick="switchTab('login-learner')">
+                    <i class="fas fa-user-graduate"></i>
+                    <span class="hidden sm:inline">Learner</span>
+                    <span class="sm:hidden text-xs">Learner</span>
+                </button>
+                <button class="py-3 px-4 font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2 tab-btn" data-tab="login-teacher" onclick="switchTab('login-teacher')">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span class="hidden sm:inline">Teacher</span>
+                    <span class="sm:hidden text-xs">Teacher</span>
+                </button>
+            </div>
+            <div class="grid grid-cols-2 border-b border-gray-200">
+                <button class="py-3 px-4 font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2 tab-btn" data-tab="login-admin" onclick="switchTab('login-admin')">
+                    <i class="fas fa-user-shield"></i>
+                    <span class="hidden sm:inline">Admin</span>
+                    <span class="sm:hidden text-xs">Admin</span>
+                </button>
+                <button class="py-3 px-4 font-semibold text-center transition-all duration-300 flex items-center justify-center gap-2 tab-btn" data-tab="register" onclick="switchTab('register')">
+                    <i class="fas fa-user-plus"></i>
+                    <span class="hidden sm:inline">Register</span>
+                    <span class="sm:hidden text-xs">Register</span>
+                </button>
+            </div>
+
+            <!-- Login Forms -->
+            <div class="p-8 md:p-10">
+
+                <!-- Login Form Container -->
+                <div id="login-form-container">
+                    <!-- Learner Login Form -->
+                    <form id="learner-form" class="form-container animate-slide-right" onsubmit="handleLogin(event, 'learner')">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Learner Login</h2>
+
+                    <div class="mb-5">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-id-card mr-2 text-brand-blue"></i>Learner ID
+                        </label>
+                        <input type="text" id="learner-id" placeholder="e.g., LRN123456" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                        <p class="text-xs text-gray-500 mt-1">Your unique learner identification number</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-lock mr-2 text-brand-blue"></i>Password
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="learner-password" placeholder="Enter your password" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePassword('learner-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-brand-blue to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Login as Learner
+                        </button>
+                    </form>
+
+                    <!-- Teacher Login Form -->
+                    <form id="teacher-form" class="form-container hidden animate-slide-left" onsubmit="handleLogin(event, 'teacher')">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Teacher Login</h2>
+                        <p class="text-sm text-gray-500 mb-4">(Accounts must be verified before you can upload videos.)</p>
+
+                    <div class="mb-5">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-id-card mr-2 text-brand-orange"></i>Teacher ID
+                        </label>
+                        <input type="text" id="teacher-id" placeholder="e.g., TCH789012" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 transition-all">
+                        <p class="text-xs text-gray-500 mt-1">Your unique teacher identification number</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-lock mr-2 text-brand-orange"></i>Password
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="teacher-password" placeholder="Enter your password" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-orange focus:ring-2 focus:ring-brand-orange/20 transition-all">
+                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePassword('teacher-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-brand-orange to-orange-600 hover:from-orange-600 hover:to-orange-700 text-white rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Login as Teacher
+                        </button>
+                    </form>
+
+                    <!-- Admin Login Form -->
+                    <form id="admin-form" class="form-container hidden animate-slide-left" onsubmit="handleLogin(event, 'admin')">
+                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Admin Login</h2>
+                        <p class="text-sm text-gray-500 mb-4">(System administration access)</p>
+
+                    <div class="mb-5">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-id-card mr-2 text-red-500"></i>Admin ID
+                        </label>
+                        <input type="text" id="admin-id" placeholder="e.g., ADM123456" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all">
+                        <p class="text-xs text-gray-500 mt-1">Your unique admin identification number</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-lock mr-2 text-red-500"></i>Password
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="admin-password" placeholder="Enter your password" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:border-red-500 focus:ring-2 focus:ring-red-500/20 transition-all">
+                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePassword('admin-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                        <button type="submit" class="w-full py-3 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg">
+                            <i class="fas fa-sign-in-alt mr-2"></i>Login as Admin
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Registration Form -->
+                <form id="register-form" class="form-container hidden animate-slide-right" onsubmit="handleRegister(event)">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Create New Account</h2>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-user-tag mr-2 text-brand-blue"></i>Account Type
+                        </label>
+                        <p class="text-xs text-gray-500 mb-2">Teachers require verification before accessing upload features.</p>
+                        <select id="register-type" required class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20">
+                            <option value="learner">Learner</option>
+                            <option value="teacher">Teacher</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-id-card mr-2 text-brand-blue"></i>User ID
+                        </label>
+                        <input type="text" id="register-id" placeholder="e.g., LRN000001 or TCH000001" required 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                        <p class="text-xs text-gray-500 mt-1">Unique identifier (6+ characters)</p>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-user mr-2 text-brand-blue"></i>Full Name
+                        </label>
+                        <input type="text" id="register-name" placeholder="Enter your full name" required 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-envelope mr-2 text-brand-blue"></i>Email
+                        </label>
+                        <input type="email" id="register-email" placeholder="Enter your email" required 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-building mr-2 text-brand-blue"></i>Institution
+                        </label>
+                        <input type="text" id="register-institution" placeholder="Your school/college/university name" 
+                               class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-lock mr-2 text-brand-blue"></i>Password
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="register-password" placeholder="Min. 6 characters (include numbers)" required 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePassword('register-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">Must be at least 6 characters</p>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">
+                            <i class="fas fa-check-circle mr-2 text-brand-blue"></i>Confirm Password
+                        </label>
+                        <div class="relative">
+                            <input type="password" id="register-confirm-password" placeholder="Re-enter your password" required 
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:border-brand-blue focus:ring-2 focus:ring-brand-blue/20 transition-all">
+                            <button type="button" class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600" onclick="togglePassword('register-confirm-password')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full py-3 bg-gradient-to-r from-brand-blue to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white rounded-xl font-semibold transition-all transform hover:scale-105 shadow-lg">
+                        <i class="fas fa-user-plus mr-2"></i>Create Account
+                    </button>
+
+                    <p class="text-xs text-gray-600 text-center mt-4">
+                        Already have an account? 
+                        <button type="button" onclick="switchTab('login-learner')" class="text-brand-blue hover:text-blue-700 font-semibold">
+                            Login here
+                        </button>
+                    </p>
+                </form>
+
+                <!-- Help Links -->
+                <div class="mt-6 pt-6 border-t border-gray-200">
+                    <div class="flex flex-col gap-3 text-sm">
+                        <button type="button" onclick="showModal('forgot')" class="text-brand-blue hover:text-blue-700 font-medium transition-colors">
+                            <i class="fas fa-question-circle mr-2"></i>Forgot your credentials?
+                        </button>
+                        <button type="button" onclick="showModal('support')" class="text-gray-600 hover:text-gray-800 font-medium transition-colors">
+                            <i class="fas fa-headset mr-2"></i>Need help? Contact Support
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center mt-6 text-blue-100 text-sm">
+            <p>Secure Login • Your data is encrypted and secure</p>
+        </div>
+    </div>
+
+    <!-- Forgot Credentials Modal -->
+    <div id="forgot-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full animate-fade-in">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-gray-900">Forgot Credentials?</h3>
+                <button onclick="closeModal('forgot')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <p class="text-gray-600 mb-4">Please contact your institution's help desk or administration office to reset your credentials.</p>
+            <p class="text-sm text-gray-500 mb-4">Our support team can guide you through the recovery process.</p>
+            <button onclick="closeModal('forgot')" class="w-full py-2 bg-brand-blue text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                Understood
+            </button>
+        </div>
+    </div>
+
+    <!-- Support Modal -->
+    <div id="support-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50 p-4">
+        <div class="bg-white rounded-2xl p-6 max-w-sm w-full animate-fade-in">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-xl font-bold text-gray-900">Get Support</h3>
+                <button onclick="closeModal('support')" class="text-gray-400 hover:text-gray-600">
+                    <i class="fas fa-times text-xl"></i>
+                </button>
+            </div>
+            <div class="space-y-3 mb-4">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-envelope text-brand-blue text-lg"></i>
+                    <div>
+                        <p class="font-semibold text-gray-900">Email</p>
+                        <p class="text-sm text-gray-600">support@incredu.com</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-phone text-brand-blue text-lg"></i>
+                    <div>
+                        <p class="font-semibold text-gray-900">Phone</p>
+                        <p class="text-sm text-gray-600">1-800-INCREDU-1</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-clock text-brand-blue text-lg"></i>
+                    <div>
+                        <p class="font-semibold text-gray-900">Hours</p>
+                        <p class="text-sm text-gray-600">Mon-Fri 9 AM - 6 PM EST</p>
+                    </div>
+                </div>
+            </div>
+            <button onclick="closeModal('support')" class="w-full py-2 bg-brand-blue text-white rounded-lg font-semibold hover:bg-blue-600 transition-colors">
+                Close
+            </button>
+        </div>
+    </div>
+
+    <script src="login.js"></script>
+</body>
+</html>

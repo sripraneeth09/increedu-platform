@@ -1,0 +1,190 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #4F8CFF 0%, #E0E7FF 50%, #FF8C42 100%);
+    min-height: 100vh;
+}
+
+/* Tab Navigation Styling */
+.tab-btn {
+    color: #9CA3AF;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    color: #4F8CFF;
+    border-bottom-color: #4F8CFF;
+    background-color: #F0F6FF;
+}
+
+.tab-btn:hover:not(.active) {
+    color: #6B7280;
+    background-color: #F9FAFB;
+}
+
+/* Form Container */
+.form-container {
+    transition: all 0.4s ease;
+}
+
+.form-container.hidden {
+    display: none;
+}
+
+/* Input Field Styling */
+input[type="text"],
+input[type="password"] {
+    background: white;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    background: #F0F6FF;
+}
+
+/* Password Toggle Animation */
+button[type="button"] i {
+    transition: all 0.2s ease;
+}
+
+button[type="button"]:hover i {
+    transform: scale(1.1);
+}
+
+/* Button Hover Effects */
+button[type="submit"] {
+    position: relative;
+    overflow: hidden;
+}
+
+button[type="submit"]::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+button[type="submit"]:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+/* Modal Styling */
+#forgot-modal,
+#support-modal {
+    animation: fadeIn 0.3s ease-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #4F8CFF;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #1E3A8A;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tab-btn span {
+        font-size: 0.875rem;
+    }
+
+    button[type="submit"] {
+        font-size: 0.95rem;
+    }
+}
+
+/* Success Animation */
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Error State */
+input.error {
+    border-color: #EF4444 !important;
+    background-color: #FEE2E2 !important;
+}
+
+input.error:focus {
+    outline-color: #EF4444 !important;
+}
+
+/* Success State */
+input.success {
+    border-color: #10B981 !important;
+    background-color: #F0FDF4 !important;
+}
+
+/* Placeholder Styling */
+input::placeholder {
+    color: #D1D5DB;
+}
+
+/* Focus Visible */
+input:focus-visible {
+    outline: none;
+}
+
+/* Loading State for Buttons */
+button[type="submit"].loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+button[type="submit"].loading::after {
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-left: 8px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Backdrop Blur Effect */
+@supports (backdrop-filter: blur(10px)) {
+
+    #forgot-modal,
+    #support-modal {
+        backdrop-filter: blur(4px);
+    }
+}

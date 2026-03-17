@@ -1,0 +1,115 @@
+body { 
+    background-color: #F8FAFC; 
+    font-family: 'Inter', sans-serif; 
+}
+
+.card-shadow { 
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08); 
+}
+
+.card-hover { 
+    transition: all 0.3s ease; 
+}
+
+.card-hover:hover { 
+    transform: translateY(-4px); 
+    box-shadow: 0 12px 40px rgba(79,140,255,0.15); 
+}
+
+.option-card { 
+    transition: all 0.2s ease; 
+    border: 2px solid transparent; 
+}
+
+.option-card:hover { 
+    border-color: #4F8CFF; 
+    background-color: #EFF6FF; 
+}
+
+.option-card.selected { 
+    border-color: #4F8CFF; 
+    background-color: #DBEAFE; 
+}
+
+.checkbox-custom:checked ~ div {
+    border-color: #000000;
+}
+
+.checkbox-custom:checked ~ div svg {
+    display: block ;
+    background-color: #4ec5e6;
+}
+
+.progress-fill { 
+    transition: width 0.6s ease; 
+}
+
+.section-hidden { 
+    display: none; 
+    opacity: 0; 
+}
+
+.section-visible { 
+    display: block; 
+    animation: fadeIn 0.5s ease-out forwards; 
+}
+
+.domain-accent-tech { 
+    --accent: #3B82F6; 
+    --accent-light: #DBEAFE; 
+}
+
+.domain-accent-business { 
+    --accent: #F59E0B; 
+    --accent-light: #FEF3C7; 
+}
+
+.domain-accent-creative { 
+    --accent: #8B5CF6; 
+    --accent-light: #EDE9FE; 
+}
+
+.domain-accent-healthcare { 
+    --accent: #10B981; 
+    --accent-light: #D1FAE5; 
+}
+
+.domain-accent-education { 
+    --accent: #EC4899; 
+    --accent-light: #FCE7F3; 
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+    0% { 
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% { 
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-slide-up {
+    animation: slideUp 0.4s ease-out forwards;
+}
+
+.animate-slide-down {
+    animation: slideDown 0.3s ease-out forwards;
+}
