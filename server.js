@@ -1097,20 +1097,35 @@ app.get('/api/teacher/courses/:courseId/analytics', async (req, res) => {
 
 // Create/Upload a new course (teachers only)
 // Handle course upload with video file
-app.post('/api/teacher/courses', upload.single('video_file'), async (req, res) => {
-    try {
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({ status: 'error', message: 'No token provided' });
+app.post('/api/teacher/courses', authenticateToken, (req, res, next) => {
+    console.log(`[Upload] Request received from user: ${req.user?.user_id || 'Unknown'}`);
+    upload.single('video_file')(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            console.error('[Upload] Multer Error:', err);
+            return res.status(400).json({ status: 'error', message: `Upload error: ${err.message}` });
+        } else if (err) {
+            console.error('[Upload] Unknown Error:', err);
+            return res.status(500).json({ status: 'error', message: 'Unknown upload error' });
         }
-        const decoded = jwt.verify(token, JWT_SECRET);
-        if (decoded.user_type !== 'teacher') {
+        next();
+    });
+}, async (req, res) => {
+    try {
+        if (req.user.user_type !== 'teacher') {
             return res.status(403).json({ status: 'error', message: 'Only teachers can upload courses' });
         }
 
-        const teacher = await Teacher.findById(decoded.id);
-        if (!teacher || !teacher.is_verified) {
-            return res.status(403).json({ status: 'error', message: 'Teacher not verified or not found' });
+        const teacher = await Teacher.findById(req.user.id);
+        if (!teacher) {
+            return res.status(404).json({ status: 'error', message: 'Teacher not found' });
+        }
+
+        if (!teacher.is_verified) {
+            console.log(`[Upload] Blocked: Teacher ${teacher.user_id} is not verified`);
+            return res.status(403).json({ 
+                status: 'error', 
+                message: 'Your account is not yet verified by an administrator. Please wait for verification before uploading courses.' 
+            });
         }
 
         const { title, description, domain, role, level, thumbnail_url, duration_minutes, tags } = req.body;
@@ -1220,14 +1235,19 @@ app.get('/api/teacher/courses/:courseId', async (req, res) => {
 });
 
 // Update a course (teachers only)
-app.put('/api/teacher/courses/:courseId', upload.single('video_file'), async (req, res) => {
-    try {
-        const token = req.headers.authorization?.split(' ')[1];
-        if (!token) {
-            return res.status(401).json({ status: 'error', message: 'No token provided' });
+app.put('/api/teacher/courses/:courseId', authenticateToken, (req, res, next) => {
+    console.log(`[Update] Request received for course: ${req.params.courseId} from user: ${req.user?.user_id}`);
+    upload.single('video_file')(req, res, (err) => {
+        if (err instanceof multer.MulterError) {
+            return res.status(400).json({ status: 'error', message: `Upload error: ${err.message}` });
+        } else if (err) {
+            return res.status(500).json({ status: 'error', message: 'Unknown upload error' });
         }
-        const decoded = jwt.verify(token, JWT_SECRET);
-        if (decoded.user_type !== 'teacher') {
+        next();
+    });
+}, async (req, res) => {
+    try {
+        if (req.user.user_type !== 'teacher') {
             return res.status(403).json({ status: 'error', message: 'Only teachers can update courses' });
         }
 
@@ -1236,7 +1256,7 @@ app.put('/api/teacher/courses/:courseId', upload.single('video_file'), async (re
             return res.status(404).json({ status: 'error', message: 'Course not found' });
         }
 
-        if (course.teacher.toString() !== decoded.id) {
+        if (course.teacher.toString() !== req.user.id) {
             return res.status(403).json({ status: 'error', message: 'You do not own this course' });
         }
 

@@ -52,7 +52,9 @@ async function handleCourseUpload(event) {
     const method = isEdit ? 'PUT' : 'POST';
 
     try {
-        console.log(`Sending ${method} request to ${url}...`);
+        console.log(`[Upload] Sending ${method} request to ${url}...`);
+        console.log('[Upload] Current token:', token ? 'Exists' : 'Missing');
+        
         const response = await fetch(url, {
             method: method,
             headers: {
@@ -61,7 +63,17 @@ async function handleCourseUpload(event) {
             body: formData
         });
 
-        const data = await response.json();
+        console.log('[Upload] Response status:', response.status);
+        
+        let data;
+        const contentType = response.headers.get('content-type');
+        if (contentType && contentType.includes('application/json')) {
+            data = await response.json();
+        } else {
+            const rawText = await response.text();
+            console.error('[Upload] Received non-JSON response:', rawText);
+            throw new Error(`Server returned non-JSON response (Status: ${response.status})`);
+        }
 
         if (response.ok) {
             console.log('Action success:', data);
