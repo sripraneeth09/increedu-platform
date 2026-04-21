@@ -261,6 +261,8 @@ async function handleLogin(event, userType) {
         // Save verification status for teacher
         if (userType === 'teacher') {
             sessionStorage.setItem('isVerified', (data.is_verified === true).toString());
+            sessionStorage.setItem('primaryDomain', data.user.primary_domain || '');
+            sessionStorage.setItem('assignedDomains', JSON.stringify(data.user.assigned_domains || []));
             if (!data.is_verified) {
                 showError('teacher', 'Your account is pending verification. You can sign in and view limited features.');
             }

@@ -189,6 +189,19 @@ async function checkLoginStatus() {
                                 }
                                 if (verifyReqEl) verifyReqEl.classList.add('hidden');
 
+                                // Pre-fill and lock domain if assigned
+                                const teacherDomain = profJson.user.primary_domain;
+                                const domainSelect = document.getElementById('course-domain');
+                                if (teacherDomain && domainSelect) {
+                                    domainSelect.value = teacherDomain;
+                                    domainSelect.disabled = true; // Lock the domain
+                                    console.log(`[Teacher] Auto-filled and locked domain to: ${teacherDomain}`);
+                                    
+                                    // Trigger subtopic and career path updates for this domain
+                                    if (typeof updateSubtopics === 'function') updateSubtopics();
+                                    if (typeof populateCareerPathsForDomain === 'function') populateCareerPathsForDomain(teacherDomain);
+                                }
+
                             } else {
                                 // Not verified - show pending notice and limited dashboard
                                 if (tSec) {

@@ -536,7 +536,9 @@ app.post('/api/login', async (req, res) => {
                 user_id: user.user_id,
                 user_type: user_type,
                 email: user.email,
-                full_name: user.full_name
+                full_name: user.full_name,
+                primary_domain: user_type === 'teacher' ? user.primary_domain : null,
+                assigned_domains: user_type === 'teacher' ? user.assigned_domains : []
             },
             is_verified: user.is_verified || false
         });
