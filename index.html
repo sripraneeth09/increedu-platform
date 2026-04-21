@@ -149,27 +149,29 @@
                 </form>
             </div>
 
-            <!-- Tab Navigation -->
-            <div class="flex gap-4 mb-8 border-b border-gray-200">
+            <!-- Tab Navigation (Mobile Scrollable) -->
+            <div class="flex gap-2 md:gap-4 mb-6 md:mb-8 border-b border-gray-200 overflow-x-auto no-scrollbar pb-2">
                 <button
-                    class="teacher-tab-btn active px-4 py-2 font-semibold text-gray-900 border-b-2 border-brand-blue"
+                    class="teacher-tab-btn active px-4 py-2 text-sm md:text-base font-semibold text-gray-900 border-b-2 border-brand-blue whitespace-nowrap transition-all"
                     data-tab="upload">
-                    <i class="fas fa-plus-circle mr-2"></i>Upload Course
+                    <i class="fas fa-plus-circle mr-2 text-xs md:text-base"></i>Upload Course
                 </button>
-                <button class="teacher-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                <button class="teacher-tab-btn px-4 py-2 text-sm md:text-base font-semibold text-gray-600 hover:text-gray-900 whitespace-nowrap transition-all"
                     data-tab="manage">
-                    <i class="fas fa-list-check mr-2"></i>Manage Courses
+                    <i class="fas fa-list-check mr-2 text-xs md:text-base"></i>Manage Courses
                 </button>
-                <button class="teacher-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                <button class="teacher-tab-btn px-4 py-2 text-sm md:text-base font-semibold text-gray-600 hover:text-gray-900 whitespace-nowrap transition-all"
                     data-tab="analytics">
-                    <i class="fas fa-chart-bar mr-2"></i>Analytics
+                    <i class="fas fa-chart-bar mr-2 text-xs md:text-base"></i>Analytics
                 </button>
             </div>
 
             <!-- Upload Course Tab -->
             <div id="teacher-upload-tab" class="teacher-tab-content">
-                <div class="bg-white rounded-2xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Create New Course</h3>
+                <div class="bg-white rounded-xl md:rounded-2xl p-5 md:p-8 shadow-md border border-gray-100">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <i class="fas fa-plus-circle text-brand-blue"></i> Create New Course
+                    </h3>
                     <form id="upload-course-form"
                         onsubmit="event.preventDefault(); handleCourseUpload(event); return false;">
                         <input type="hidden" id="edit-course-id">
@@ -269,8 +271,10 @@
 
             <!-- Manage Courses Tab -->
             <div id="teacher-manage-tab" class="teacher-tab-content hidden">
-                <div class="bg-white rounded-2xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Your Courses</h3>
+                <div class="bg-white rounded-xl md:rounded-2xl p-5 md:p-8 shadow-md border border-gray-100">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <i class="fas fa-list-check text-brand-blue"></i> Your Courses
+                    </h3>
                     <div id="teacher-courses-list" class="space-y-4">
                         <p class="text-gray-500 text-center py-8">Loading your courses...</p>
                     </div>
@@ -279,8 +283,10 @@
 
             <!-- Analytics Tab -->
             <div id="teacher-analytics-tab" class="teacher-tab-content hidden">
-                <div class="bg-white rounded-2xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Course Analytics</h3>
+                <div class="bg-white rounded-xl md:rounded-2xl p-5 md:p-8 shadow-md border border-gray-100">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                        <i class="fas fa-chart-bar text-brand-blue"></i> Course Analytics
+                    </h3>
                     <div id="teacher-analytics-content" class="space-y-6">
                         <p class="text-gray-500 text-center py-8">Select a course to view analytics</p>
                     </div>
@@ -290,39 +296,39 @@
 
         <!-- Admin Dashboard (hidden by default, shown for verified admins) -->
         <section id="admin-section"
-            class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-red-50 to-pink-50 rounded-3xl p-8 mb-8">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h2>
-                <div class="flex items-center gap-4">
+            class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl md:rounded-3xl p-5 md:p-8 mb-8 border border-red-100/50">
+            <div class="mb-6 md:mb-8 text-center md:text-left">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-2">Admin Dashboard</h2>
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3 md:gap-4">
                     <div id="admin-status"
-                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 font-semibold">
+                        class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 font-semibold text-sm">
                         <i class="fas fa-user-shield"></i> System Administrator
                     </div>
-                    <p class="text-gray-600">Manage users, monitor progress, and oversee system operations</p>
+                    <p class="text-sm md:text-base text-gray-600">Manage users, monitor progress, and oversee system operations</p>
                 </div>
             </div>
 
-            <!-- Tab Navigation -->
-            <div class="flex gap-4 mb-8 border-b border-gray-200">
-                <button class="admin-tab-btn active px-4 py-2 font-semibold text-gray-900 border-b-2 border-red-500"
+            <!-- Tab Navigation (Mobile Scrollable) -->
+            <div class="flex gap-2 md:gap-4 mb-6 md:mb-8 border-b border-gray-200 overflow-x-auto no-scrollbar pb-2">
+                <button class="admin-tab-btn active px-4 py-2 text-sm md:text-base font-semibold text-gray-900 border-b-2 border-red-500 whitespace-nowrap transition-all"
                     data-tab="overview">
-                    <i class="fas fa-tachometer-alt mr-2"></i>Overview
+                    <i class="fas fa-tachometer-alt mr-2 text-xs md:text-base"></i>Overview
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                <button class="admin-tab-btn px-4 py-2 text-sm md:text-base font-semibold text-gray-600 hover:text-gray-900 whitespace-nowrap transition-all"
                     data-tab="users">
-                    <i class="fas fa-users mr-2"></i>Manage Users
+                    <i class="fas fa-users mr-2 text-xs md:text-base"></i>Manage Users
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                <button class="admin-tab-btn px-4 py-2 text-sm md:text-base font-semibold text-gray-600 hover:text-gray-900 whitespace-nowrap transition-all"
                     data-tab="verifications">
-                    <i class="fas fa-user-check mr-2"></i>Teacher Verifications
+                    <i class="fas fa-user-check mr-2 text-xs md:text-base"></i>Teacher Verifications
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                <button class="admin-tab-btn px-4 py-2 text-sm md:text-base font-semibold text-gray-600 hover:text-gray-900 whitespace-nowrap transition-all"
                     data-tab="progress">
-                    <i class="fas fa-chart-line mr-2"></i>Progress Tracking
+                    <i class="fas fa-chart-line mr-2 text-xs md:text-base"></i>Progress Tracking
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                <button class="admin-tab-btn px-4 py-2 text-sm md:text-base font-semibold text-gray-600 hover:text-gray-900 whitespace-nowrap transition-all"
                     data-tab="courses">
-                    <i class="fas fa-book mr-2"></i>Course Management
+                    <i class="fas fa-book mr-2 text-xs md:text-base"></i>Course Management
                 </button>
             </div>
 
@@ -375,8 +381,10 @@
                     </div>
                 </div>
 
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 mb-4">Recent Activity</h3>
+                <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-4 md:mb-6 flex items-center gap-2">
+                        <i class="fas fa-history text-red-500"></i> Recent Activity
+                    </h3>
                     <div id="recent-activity" class="space-y-3">
                         <p class="text-gray-500 text-center py-4">Loading recent activity...</p>
                     </div>
@@ -385,11 +393,11 @@
 
             <!-- Manage Users Tab -->
             <div id="admin-users-tab" class="admin-tab-content hidden">
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">User Management</h3>
+                <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">User Management</h3>
                         <button onclick="loadAdminUsers()"
-                            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors">
+                            class="w-full sm:w-auto px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors flex items-center justify-center">
                             <i class="fas fa-sync mr-2"></i>Refresh
                         </button>
                     </div>
@@ -401,11 +409,11 @@
 
             <!-- Teacher Verification Queue Tab -->
             <div id="admin-verifications-tab" class="admin-tab-content hidden">
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-xl font-bold text-gray-900">Teacher Verification Queue</h3>
+                <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Teacher Verification Queue</h3>
                         <button onclick="loadAdminVerificationQueue()"
-                            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors">
+                            class="w-full sm:w-auto px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors flex items-center justify-center">
                             <i class="fas fa-sync mr-2"></i>Refresh
                         </button>
                     </div>
@@ -417,8 +425,8 @@
 
             <!-- Progress Tracking Tab -->
             <div id="admin-progress-tab" class="admin-tab-content hidden">
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Progress Tracking</h3>
+                <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6">Progress Tracking</h3>
                     <div id="admin-progress-content" class="space-y-6">
                         <p class="text-gray-500 text-center py-8">Loading progress data...</p>
                     </div>
@@ -427,8 +435,8 @@
 
             <!-- Course Management Tab -->
             <div id="admin-courses-tab" class="admin-tab-content hidden">
-                <div class="bg-white rounded-xl p-6 shadow-md">
-                    <h3 class="text-xl font-bold text-gray-900 mb-6">Course Management</h3>
+                <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
+                    <h3 class="text-lg md:text-xl font-bold text-gray-900 mb-6">Course Management</h3>
                     <div id="admin-courses-content" class="space-y-6">
                         <p class="text-gray-500 text-center py-8">Loading courses...</p>
                     </div>
