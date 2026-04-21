@@ -39,14 +39,14 @@
 
     <div class="relative z-10 w-full max-w-md">
         <!-- Header -->
-        <div class="text-center mb-8 animate-fade-in">
-            <div class="w-16 h-16 mx-auto mb-4 bg-white rounded-2xl flex items-center justify-center shadow-lg">
-                <div class="w-14 h-14 bg-gradient-to-br from-brand-blue to-brand-dark rounded-xl flex items-center justify-center text-white font-bold">
-                    <i class="fas fa-compass text-2xl"></i>
+        <div class="text-center mb-6 md:mb-8 animate-fade-in">
+            <div class="w-14 h-14 md:w-16 md:h-16 mx-auto mb-3 md:mb-4 bg-white rounded-2xl flex items-center justify-center shadow-lg">
+                <div class="w-12 h-12 md:w-14 md:h-14 bg-gradient-to-br from-brand-blue to-brand-dark rounded-xl flex items-center justify-center text-white font-bold">
+                    <i class="fas fa-compass text-xl md:text-2xl"></i>
                 </div>
             </div>
-            <h1 class="text-4xl font-bold text-white mb-2">InCreEdu</h1>
-            <p class="text-blue-100">Discover Your Perfect Career</p>
+            <h1 class="text-3xl md:text-4xl font-bold text-white mb-1 md:mb-2 tracking-tight">InCreEdu</h1>
+            <p class="text-blue-100 text-sm md:text-base opacity-90">Discover Your Perfect Career</p>
         </div>
 
         <!-- Login Card -->
@@ -79,13 +79,13 @@
             </div>
 
             <!-- Login Forms -->
-            <div class="p-8 md:p-10">
+            <div class="p-6 md:p-10">
 
                 <!-- Login Form Container -->
                 <div id="login-form-container">
                     <!-- Learner Login Form -->
                     <form id="learner-form" class="form-container animate-slide-right" onsubmit="handleLogin(event, 'learner')">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Learner Login</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">Learner Login</h2>
 
                     <div class="mb-5">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">
@@ -116,7 +116,7 @@
 
                     <!-- Teacher Login Form -->
                     <form id="teacher-form" class="form-container hidden animate-slide-left" onsubmit="handleLogin(event, 'teacher')">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Teacher Login</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">Teacher Login</h2>
                         <p class="text-sm text-gray-500 mb-4">(Accounts must be verified before you can upload videos.)</p>
 
                     <div class="mb-5">
@@ -148,7 +148,7 @@
 
                     <!-- Admin Login Form -->
                     <form id="admin-form" class="form-container hidden animate-slide-left" onsubmit="handleLogin(event, 'admin')">
-                        <h2 class="text-2xl font-bold text-gray-900 mb-6">Admin Login</h2>
+                        <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">Admin Login</h2>
                         <p class="text-sm text-gray-500 mb-4">(System administration access)</p>
 
                     <div class="mb-5">
@@ -181,7 +181,7 @@
 
                 <!-- Registration Form -->
                 <form id="register-form" class="form-container hidden animate-slide-right" onsubmit="handleRegister(event)">
-                    <h2 class="text-2xl font-bold text-gray-900 mb-6">Create New Account</h2>
+                    <h2 class="text-xl md:text-2xl font-bold text-gray-900 mb-6">Create New Account</h2>
 
                     <div class="mb-4">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">

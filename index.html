@@ -41,33 +41,32 @@
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-gray-200 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+        <div class="max-w-6xl mx-auto px-4 md:px-6 py-3 md:py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <div
-                    class="w-8 h-8 bg-gradient-to-br from-brand-blue to-brand-dark rounded-lg flex items-center justify-center text-white font-bold">
-                    <i class="fas fa-compass text-sm"></i>
+                    class="w-7 h-7 md:w-8 md:h-8 bg-gradient-to-br from-brand-blue to-brand-dark rounded-lg flex items-center justify-center text-white font-bold">
+                    <i class="fas fa-compass text-xs md:sm"></i>
                 </div>
-                <span class="font-bold text-xl text-gray-900">InCreEdu</span>
+                <span class="font-bold text-lg md:text-xl text-gray-900">InCreEdu</span>
             </div>
 
-            <div class="flex items-center gap-4">
-                <div id="user-info" class="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-lg">
-                    <i class="fas fa-user-circle text-brand-blue text-lg"></i>
-                    <div class="text-sm">
+            <div class="flex items-center gap-2 md:gap-4">
+                <div id="user-info" class="hidden sm:flex items-center gap-2 px-3 py-1.5 bg-blue-50 rounded-lg">
+                    <i class="fas fa-user-circle text-brand-blue text-base"></i>
+                    <div class="text-xs">
                         <p class="font-semibold text-gray-900" id="user-name">User</p>
-                        <p class="text-xs text-gray-500" id="user-type">Learner</p>
                     </div>
                 </div>
 
                 <button id="logout-btn"
-                    class="hidden px-4 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition-colors text-sm flex items-center gap-2"
+                    class="hidden px-3 md:px-4 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition-colors text-xs md:text-sm flex items-center gap-1 md:gap-2"
                     onclick="handleLogout()">
-                    <i class="fas fa-sign-out-alt"></i>Logout
+                    <i class="fas fa-sign-out-alt"></i><span class="hidden xs:inline">Logout</span>
                 </button>
                 <button id="login-btn"
-                    class="px-4 py-2 rounded-lg bg-brand-blue hover:bg-blue-600 text-white font-semibold transition-colors text-sm flex items-center gap-2"
+                    class="px-3 md:px-4 py-2 rounded-lg bg-brand-blue hover:bg-blue-600 text-white font-semibold transition-colors text-xs md:text-sm flex items-center gap-1 md:gap-2"
                     onclick="window.location.href='login.html'">
-                    <i class="fas fa-sign-in-alt"></i>Login
+                    <i class="fas fa-sign-in-alt"></i><span class="hidden xs:inline">Login</span>
                 </button>
             </div>
         </div>
@@ -77,29 +76,29 @@
 
         <!-- Teacher Dashboard (hidden by default, shown for verified teachers) -->
         <section id="teacher-section"
-            class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 mb-8">
-            <div class="mb-8">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">Teacher Dashboard</h2>
-                <div class="flex items-center gap-4">
+            class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl md:rounded-3xl p-5 md:p-8 mb-8">
+            <div class="mb-6 md:mb-8">
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Teacher Dashboard</h2>
+                <div class="flex flex-col sm:flex-row sm:items-center gap-3">
                     <div id="teacher-verify-status"
-                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
+                        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-green-100 text-green-700 font-semibold text-sm">
                         <i class="fas fa-check-circle"></i> Verified Teacher
                     </div>
-                    <p class="text-gray-600">Create and manage courses for learners across different levels</p>
+                    <p class="text-sm md:text-base text-gray-600">Create and manage courses for learners across different levels</p>
                 </div>
             </div>
 
             <!-- Verification Request (shown when teacher is not verified) -->
             <div id="teacher-verification-request"
-                class="hidden mb-8 bg-white rounded-2xl p-6 shadow-md border border-yellow-200">
-                <div class="flex items-start justify-between gap-4 mb-4">
+                class="hidden mb-8 bg-white rounded-xl md:rounded-2xl p-5 md:p-6 shadow-md border border-yellow-200">
+                <div class="flex flex-col sm:flex-row items-start justify-between gap-4 mb-4">
                     <div>
-                        <h3 class="text-xl font-bold text-gray-900">Get Verified to Upload Videos</h3>
-                        <p class="text-sm text-gray-600 mt-1">Submit your details for admin approval. Once approved, you
+                        <h3 class="text-lg md:text-xl font-bold text-gray-900">Get Verified to Upload Videos</h3>
+                        <p class="text-xs md:text-sm text-gray-600 mt-1">Submit your details for admin approval. Once approved, you
                             can upload videos only to your assigned domain(s).</p>
                     </div>
                     <div
-                        class="px-3 py-1 rounded-full bg-yellow-50 text-yellow-800 text-xs font-semibold border border-yellow-200">
+                        class="px-3 py-1 rounded-full bg-yellow-50 text-yellow-800 text-[10px] md:text-xs font-semibold border border-yellow-200 whitespace-nowrap">
                         Pending / Not Verified
                     </div>
                 </div>
@@ -329,48 +328,48 @@
 
             <!-- Overview Tab -->
             <div id="admin-overview-tab" class="admin-tab-content">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-white rounded-xl p-6 shadow-md">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-8">
+                    <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-sm text-gray-500">Total Learners</p>
-                                <p class="text-2xl font-bold text-gray-900" id="total-learners">0</p>
+                                <p class="text-xs md:text-sm text-gray-500 uppercase tracking-wider font-semibold">Total Learners</p>
+                                <p class="text-xl md:text-2xl font-bold text-gray-900 mt-1" id="total-learners">0</p>
                             </div>
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-user-graduate text-blue-600 text-xl"></i>
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-user-graduate text-blue-600 text-lg md:text-xl"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-sm text-gray-500">Total Teachers</p>
-                                <p class="text-2xl font-bold text-gray-900" id="total-teachers">0</p>
+                                <p class="text-xs md:text-sm text-gray-500 uppercase tracking-wider font-semibold">Total Teachers</p>
+                                <p class="text-xl md:text-2xl font-bold text-gray-900 mt-1" id="total-teachers">0</p>
                             </div>
-                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-chalkboard-teacher text-orange-600 text-xl"></i>
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-orange-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-chalkboard-teacher text-orange-600 text-lg md:text-xl"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-sm text-gray-500">Verified Teachers</p>
-                                <p class="text-2xl font-bold text-gray-900" id="verified-teachers">0</p>
+                                <p class="text-xs md:text-sm text-gray-500 uppercase tracking-wider font-semibold">Verified Teachers</p>
+                                <p class="text-xl md:text-2xl font-bold text-gray-900 mt-1" id="verified-teachers">0</p>
                             </div>
-                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-check-circle text-green-600 text-xl"></i>
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-check-circle text-green-600 text-lg md:text-xl"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-white rounded-xl p-6 shadow-md">
+                    <div class="bg-white rounded-xl p-5 md:p-6 shadow-md border border-gray-100">
                         <div class="flex items-center justify-between">
                             <div>
-                                <p class="text-sm text-gray-500">Avg Progress</p>
-                                <p class="text-2xl font-bold text-gray-900" id="avg-progress">0%</p>
+                                <p class="text-xs md:text-sm text-gray-500 uppercase tracking-wider font-semibold">Avg Progress</p>
+                                <p class="text-xl md:text-2xl font-bold text-gray-900 mt-1" id="avg-progress">0%</p>
                             </div>
-                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                                <i class="fas fa-chart-line text-purple-600 text-xl"></i>
+                            <div class="w-10 h-10 md:w-12 md:h-12 bg-purple-100 rounded-lg flex items-center justify-center">
+                                <i class="fas fa-chart-line text-purple-600 text-lg md:text-xl"></i>
                             </div>
                         </div>
                     </div>
@@ -439,15 +438,15 @@
 
         <!-- Learner Course Discovery Section -->
         <section id="learner-courses-section"
-            class="max-w-6xl mx-auto section-hidden bg-white rounded-3xl p-8 mb-8 shadow-md">
-            <div class="mb-8">
-                <div class="flex items-center justify-between gap-4 flex-wrap">
+            class="max-w-6xl mx-auto section-hidden bg-white rounded-2xl md:rounded-3xl p-5 md:p-8 mb-8 shadow-md border border-gray-100">
+            <div class="mb-6 md:mb-8">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
-                        <h2 class="text-3xl font-bold text-gray-900 mb-2">Learning Courses</h2>
-                        <p class="text-gray-600">Courses tailored to your level and domain</p>
+                        <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Learning Courses</h2>
+                        <p class="text-sm md:text-base text-gray-600">Courses tailored to your level and domain</p>
                     </div>
                     <button onclick="loadLearnerCourses()"
-                        class="px-4 py-2 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
+                        class="w-full sm:w-auto px-4 py-2 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center justify-center gap-2">
                         <i class="fas fa-sync-alt"></i> Refresh
                     </button>
                 </div>
@@ -463,23 +462,23 @@
 
         <!-- STEP 1: Landing -->
         <section id="step-landing" class="max-w-6xl mx-auto section-visible">
-            <div class="grid md:grid-cols-2 gap-12 items-center mt-8">
-                <div class="animate-slide-up">
+            <div class="grid md:grid-cols-2 gap-8 md:gap-12 items-center mt-4 md:mt-8">
+                <div class="animate-slide-up text-center md:text-left">
 
-                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                        Education that adapts to your <span class="text-brand-blue">interest,</span><br>not a common
+                    <h1 class="text-3xl md:text-5xl font-bold text-gray-900 leading-tight mb-4 md:mb-6">
+                        Education that adapts to your <span class="text-brand-blue">interest,</span><br class="hidden md:block">not a common
                         syllabus.
                     </h1>
-                    <p class="text-lg text-gray-600 mb-8 leading-relaxed">
+                    <p class="text-base md:text-lg text-gray-600 mb-6 md:mb-8 leading-relaxed px-4 md:px-0">
                         Traditional education teaches everyone the same thing. Discover your unique strengths and build
                         a personalized career path designed specifically for you.
                     </p>
                     <button id="main-action-btn" onclick="startAssessment()"
-                        class="px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
+                        class="w-full md:w-auto px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
                         Begin My Journey <i class="fas fa-arrow-right ml-2"></i>
                     </button>
 
-                    <div class="flex gap-8 mt-10">
+                    <div class="flex justify-center md:justify-start gap-8 mt-10">
                         <div>
                             <div class="text-2xl font-bold text-gray-900">98%</div>
                             <div class="text-sm text-gray-500">Match Accuracy</div>
@@ -491,13 +490,13 @@
                     </div>
                 </div>
 
-                <div class="relative animate-float">
+                <div class="relative animate-float mt-8 md:mt-0">
                     <div
                         class="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-orange/20 rounded-3xl transform rotate-3">
                     </div>
-                    <div class="relative bg-white rounded-3xl p-6 card-shadow">
+                    <div class="relative bg-white rounded-2xl md:rounded-3xl p-4 md:p-6 card-shadow">
                         <!-- Changed Illustration -->
-                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 mb-6 text-center">
+                        <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl md:rounded-2xl p-4 md:p-8 mb-4 md:mb-6 text-center">
                             <svg viewBox="0 0 400 300" class="w-full h-auto">
                                 <!-- Background Elements -->
                                 <circle cx="200" cy="150" r="120" fill="#E0E7FF" opacity="0.5" />
@@ -574,15 +573,15 @@
 
         <!-- STEP 2: Assessment (Domain-agnostic options) -->
         <section id="step-assessment" class="max-w-3xl mx-auto section-hidden">
-            <div class="bg-white rounded-3xl p-8 md:p-12 card-shadow mt-8">
-                <div class="flex items-center justify-between mb-8">
-                    <button onclick="prevQuestion()" class="text-gray-400 hover:text-gray-600 transition-colors"
+            <div class="bg-white rounded-2xl md:rounded-3xl p-5 md:p-12 card-shadow mt-4 md:mt-8">
+                <div class="flex items-center justify-between mb-6 md:mb-8">
+                    <button onclick="prevQuestion()" class="text-gray-400 hover:text-gray-600 transition-colors p-2"
                         id="back-btn">
-                        <i class="fas fa-chevron-left text-xl"></i>
+                        <i class="fas fa-chevron-left text-lg md:text-xl"></i>
                     </button>
-                    <div class="flex-1 mx-8">
-                        <div class="flex justify-between text-sm text-gray-500 mb-2">
-                            <span>Question <span id="current-q">1</span> of <span id="total-q">8</span></span>
+                    <div class="flex-1 mx-4 md:mx-8">
+                        <div class="flex justify-between text-xs md:text-sm text-gray-500 mb-2">
+                            <span>Q <span id="current-q">1</span> of <span id="total-q">8</span></span>
                             <span id="progress-text">12%</span>
                         </div>
                         <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
@@ -593,11 +592,11 @@
                 </div>
 
                 <div id="question-container" class="animate-slide-up">
-                    <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-gray-900 mb-8 text-center">
+                    <h2 id="question-text" class="text-xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8 text-center px-2">
                         What excites you the most?
                     </h2>
 
-                    <div id="options-grid" class="grid md:grid-cols-3 gap-4 mb-8">
+                    <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4 mb-6 md:mb-8">
                         <!-- Options injected by JS - NO DOMAIN LABELS -->
                     </div>
 
@@ -614,30 +613,30 @@
 
         <!-- STEP 3: Career Path Recommendation (No scores shown) -->
         <section id="step-results" class="max-w-4xl mx-auto section-hidden">
-            <div class="bg-white rounded-3xl p-8 md:p-12 card-shadow mt-8 text-center animate-scale-in">
+            <div class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-12 card-shadow mt-4 md:mt-8 text-center animate-scale-in">
                 <div
-                    class="w-20 h-20 mx-auto mb-6 rounded-full bg-blue-50 flex items-center justify-center text-3xl animate-pulse">
+                    class="w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 md:mb-6 rounded-full bg-blue-50 flex items-center justify-center text-2xl md:text-3xl animate-pulse">
                     <i id="result-icon" class="fas fa-lightbulb text-brand-blue"></i>
                 </div>
 
-                <h2 class="text-gray-500 font-medium mb-2">Recommended Career Path</h2>
-                <h1 id="career-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+                <h2 class="text-xs md:text-sm text-gray-500 font-medium mb-1 md:mb-2 uppercase tracking-wide">Recommended Career Path</h2>
+                <h1 id="career-title" class="text-2xl md:text-4xl font-bold text-gray-900 mb-3 md:mb-4 px-2">
                     Business & Entrepreneurship
                 </h1>
-                <p id="career-description" class="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
+                <p id="career-description" class="text-sm md:text-lg text-gray-600 max-w-2xl mx-auto mb-6 md:mb-8 leading-relaxed px-2 md:px-0">
                     You show strong strategic thinking and opportunity identification skills. You naturally understand
                     market dynamics and enjoy creating value through innovative solutions.
                 </p>
 
-                <div class="bg-blue-50 rounded-2xl p-6 mb-8 max-w-lg mx-auto">
-                    <h3 class="font-semibold text-gray-900 mb-3">Your Key Strengths</h3>
+                <div class="bg-blue-50 rounded-xl md:rounded-2xl p-4 md:p-6 mb-6 md:mb-8 max-w-lg mx-auto border border-blue-100/50">
+                    <h3 class="text-sm md:text-base font-semibold text-gray-900 mb-3">Your Key Strengths</h3>
                     <div id="strengths-list" class="flex flex-wrap gap-2 justify-center">
                         <!-- Injected by JS -->
                     </div>
                 </div>
 
                 <button onclick="showRoles()"
-                    class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all">
+                    class="w-full md:w-auto px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all shadow-md active:scale-95">
                     Explore Career Options <i class="fas fa-compass ml-2"></i>
                 </button>
             </div>
@@ -669,18 +668,18 @@
 
         <!-- STEP 5: Personalized Roadmap -->
         <section id="step-roadmap" class="max-w-6xl mx-auto section-hidden">
-            <div class="mt-8 grid lg:grid-cols-3 gap-8">
+            <div class="mt-4 md:mt-8 grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
                 <!-- Sidebar -->
                 <div class="lg:col-span-1">
                     <div class="flex items-center gap-2 mb-4">
                         <i class="fas fa-graduation-cap text-brand-orange"></i>
                         <span class="text-sm font-medium text-gray-500">Learning Path</span>
                     </div>
-                    <h2 id="roadmap-title" class="text-2xl font-bold text-gray-900 mb-2">Software Developer</h2>
-                    <p id="roadmap-subtitle" class="text-sm text-gray-500 mb-6">Master the skills needed for success</p>
+                    <h2 id="roadmap-title" class="text-xl md:text-2xl font-bold text-gray-900 mb-2">Software Developer</h2>
+                    <p id="roadmap-subtitle" class="text-xs md:text-sm text-gray-500 mb-6">Master the skills needed for success</p>
 
-                    <div class="bg-white rounded-2xl p-4 card-shadow mb-6">
-                        <div class="flex justify-between text-sm mb-2">
+                    <div class="bg-white rounded-xl md:rounded-2xl p-4 card-shadow mb-6">
+                        <div class="flex justify-between text-xs md:text-sm mb-2">
                             <span class="text-gray-600">Progress</span>
                             <span id="roadmap-percent" class="font-bold text-brand-blue">0%</span>
                         </div>
@@ -690,14 +689,14 @@
                         </div>
                     </div>
 
-                    <div id="levels-list" class="space-y-3 relative">
+                    <div id="levels-list" class="flex lg:flex-col gap-3 overflow-x-auto lg:overflow-x-visible pb-4 lg:pb-0 relative no-scrollbar">
                         <!-- Injected by JS -->
                     </div>
                 </div>
 
                 <!-- Content -->
                 <div class="lg:col-span-2">
-                    <div id="level-content" class="bg-white rounded-3xl p-8 card-shadow min-h-[600px] animate-fade-in">
+                    <div id="level-content" class="bg-white rounded-2xl md:rounded-3xl p-5 md:p-8 card-shadow min-h-[400px] md:min-h-[600px] animate-fade-in border border-gray-100/50">
                         <!-- Injected by JS -->
                     </div>
                 </div>
@@ -728,25 +727,28 @@
         </section>
 
         <!-- STEP 7: Completion -->
-        <section id="step-completion" class="max-w-3xl mx-auto section-hidden">
+        <section id="step-completion" class="max-w-3xl mx-auto section-hidden px-2 md:px-0">
             <div
-                class="bg-white rounded-3xl p-8 md:p-12 card-shadow mt-8 text-center animate-scale-in relative overflow-hidden">
+                class="bg-white rounded-2xl md:rounded-3xl p-6 md:p-12 card-shadow mt-4 md:mt-8 text-center animate-scale-in relative overflow-hidden">
                 <div
-                    class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-blue via-brand-orange to-brand-success">
+                    class="absolute top-0 left-0 w-full h-1.5 md:h-2 bg-gradient-to-r from-brand-blue via-brand-orange to-brand-success">
                 </div>
 
-                <div class="w-32 h-32 mx-auto mb-6 relative">
+                <div class="w-24 h-24 md:w-32 md:h-32 mx-auto mb-4 md:mb-6 relative">
                     <svg class="w-full h-full transform -rotate-90">
-                        <circle cx="64" cy="64" r="60" stroke="#E5E7EB" stroke-width="8" fill="none" />
-                        <circle cx="64" cy="64" r="60" stroke="#4F8CFF" stroke-width="8" fill="none"
-                            stroke-dasharray="377" stroke-dashoffset="0" class="animate-[dash_1s_ease-out_forwards]" />
+                        <circle cx="48" cy="48" r="44" stroke="#E5E7EB" stroke-width="6" fill="none" class="hidden xs:block" />
+                        <circle cx="64" cy="64" r="60" stroke="#E5E7EB" stroke-width="8" fill="none" class="xs:hidden" />
+                        
+                        <!-- Adjusted for responsive SVG or just use fixed scaling -->
+                        <i class="fas fa-check text-2xl md:text-4xl text-brand-blue absolute inset-0 flex items-center justify-center"></i>
                     </svg>
+                    <!-- Fallback icon centered without complex SVG math for simplicity in multi-device -->
                     <div class="absolute inset-0 flex items-center justify-center">
-                        <i class="fas fa-check text-4xl text-brand-blue"></i>
+                        <i class="fas fa-check text-3xl md:text-4xl text-brand-blue"></i>
                     </div>
                 </div>
 
-                <div class="inline-block px-6 py-2 rounded-full bg-blue-50 text-brand-blue font-semibold mb-4">
+                <div class="inline-block px-5 py-1.5 rounded-full bg-blue-50 text-brand-blue text-sm md:text-base font-semibold mb-3 md:mb-4">
                     <i class="fas fa-award mr-2"></i>Career Ready
                 </div>
 
@@ -768,31 +770,33 @@
 
         <!-- STEP 8: Opportunities -->
         <section id="step-opportunities" class="max-w-5xl mx-auto section-hidden">
-            <div class="mt-8">
+            <div class="mt-4 md:mt-8">
                 <div class="flex items-center gap-2 mb-2">
                     <i class="fas fa-star text-brand-orange"></i>
                     <span class="text-sm font-medium text-gray-500">Matched for You</span>
                 </div>
-                <h2 class="text-3xl font-bold text-gray-900 mb-8">Real-World Opportunities</h2>
+                <h2 class="text-2xl md:text-3xl font-bold text-gray-900 mb-6 md:mb-8">Real-World Opportunities</h2>
 
                 <!-- Dynamic Location Search -->
-                <div class="mb-8 bg-white p-4 rounded-2xl card-shadow flex flex-col md:flex-row gap-4 items-center">
+                <div class="mb-6 md:mb-8 bg-white p-4 md:p-5 rounded-2xl md:rounded-3xl card-shadow flex flex-col md:flex-row gap-3 md:gap-4 items-center border border-gray-100">
                     <div class="flex-1 w-full relative">
                         <i
                             class="fas fa-map-marker-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
                         <input type="text" id="job-location-input"
-                            placeholder="Enter preferred location (e.g. Remote, New York, London)..."
-                            class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-blue bg-gray-50" />
+                            placeholder="Location (e.g. Remote, London)..."
+                            class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-blue bg-gray-50 text-sm md:text-base transition-all" />
                     </div>
-                    <button onclick="fetchDynamicJobs()"
-                        class="w-full md:w-auto px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
-                        <i class="fas fa-search"></i> Find Jobs
-                    </button>
-                    <button onclick="getUserLocation()"
-                        class="w-full md:w-auto px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
-                        title="Use my current location">
-                        <i class="fas fa-location-arrow"></i> Location
-                    </button>
+                    <div class="flex w-full md:w-auto gap-2">
+                        <button onclick="fetchDynamicJobs()"
+                            class="flex-1 md:flex-none px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2 shadow-sm">
+                            <i class="fas fa-search"></i> <span class="md:inline">Find</span>
+                        </button>
+                        <button onclick="getUserLocation()"
+                            class="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
+                            title="Use my current location">
+                            <i class="fas fa-location-arrow"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div id="job-loading-indicator" class="hidden py-12 text-center">
