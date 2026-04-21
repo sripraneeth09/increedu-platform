@@ -1,4 +1,4 @@
-const API_BASE_URL = '/api';
+const API_BASE_URL = 'https://increedu-platform.onrender.com/api';
 
 // Track current active tab
 let activeTab = 'login-learner';

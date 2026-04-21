@@ -1,5 +1,5 @@
-const API_BASE_URL = '/api';
-const BACKEND_BASE = window.location.origin;
+const API_BASE_URL = 'https://increedu-platform.onrender.com/api';
+const BACKEND_BASE = 'https://increedu-platform.onrender.com';
 
 // Handle Course Upload (Create or Update)
 async function handleCourseUpload(event) {
