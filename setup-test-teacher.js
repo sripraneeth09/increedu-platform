@@ -1,9 +1,9 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const DB_URI = process.env.DB_URI || 'mongodb://localhost:27017/InCreEdu';
+const MONGO_URI = process.env.MONGO_URI;
 
-mongoose.connect(DB_URI).then(async () => {
+mongoose.connect(MONGO_URI).then(async () => {
     const hashedPassword = bcrypt.hashSync('demo123', 10);
     await mongoose.connection.collection('teacher_info').updateOne(
         { user_id: 'TEACHER123' },

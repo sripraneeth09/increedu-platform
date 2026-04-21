@@ -178,7 +178,8 @@ Browser Auto-Login + Redirect to index.html
 
 2. **Navigate to Login Page**
    ```
-   http://localhost:3000/login.html
+    {YOUR_HOST_URL}/login.html
+    (e.g., https://your-deployment-url.onrender.com/login.html)
    ```
 
 3. **Click "Register" Tab**
@@ -206,7 +207,7 @@ Browser Auto-Login + Redirect to index.html
 
 ```bash
 # Test registration endpoint with curl
-curl -X POST http://localhost:5000/api/register \
+curl -X POST $API_URL/api/register \
   -H "Content-Type: application/json" \
   -d '{
     "user_id": "TCH000001",

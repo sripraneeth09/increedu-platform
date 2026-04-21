@@ -109,7 +109,7 @@ MERN-based architectural pattern (utilizing Vanilla HTML/JS instead of React for
 
 ### 5.2 Development environment
 - Local development utilizing `npm` and `nodemon` for hot-reloading.
-- MongoDB local instance running on `mongodb://localhost:27017/InCreEdu`.
+- MongoDB Atlas cloud instance managed via `MONGO_URI` environment variable.
 
 ### 5.3 Modules description
 - **Authentication Module:** Dual login (learner/teacher), JWT generation, hashing, audit trails.

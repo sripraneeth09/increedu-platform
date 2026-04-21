@@ -1,5 +1,5 @@
-const API_BASE_URL = 'http://localhost:5000/api';
-const BACKEND_BASE = 'http://localhost:5000';
+const API_BASE_URL = '/api';
+const BACKEND_BASE = window.location.origin;
 
 // Handle Course Upload (Create or Update)
 async function handleCourseUpload(event) {

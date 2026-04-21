@@ -257,14 +257,14 @@ async function seed() {
     try {
         console.log('Clearing existing database...');
         try {
-            const deleteResponse = await axios.delete('http://localhost:5000/api/questions');
+            const deleteResponse = await axios.delete(`${process.env.API_BASE_URL || 'http://localhost:5000'}/api/questions`);
             console.log(deleteResponse.data.message);
         } catch (delErr) {
             console.warn('Could not clear database (it might be empty or endpoint not ready yet).', delErr.message);
         }
 
         console.log('Attempting to seed database...');
-        const response = await axios.post('http://localhost:5000/api/add-question', questions);
+        const response = await axios.post(`${process.env.API_BASE_URL || 'http://localhost:5000'}/api/add-question`, questions);
         console.log('Seeded successfully!!!', response.data);
     } catch (err) {
         console.error('Seeding failed!');

@@ -44,7 +44,7 @@ InCreEdu-555/
 
 ### Prerequisites
 - **Node.js** v14 or higher
-- **MongoDB** server running locally (or accessible via network)
+- **MongoDB Atlas** cluster (recommended)
 - **npm** package manager
 
 ### Step 1: Install Dependencies
@@ -54,14 +54,14 @@ npm install
 ```
 
 ### Step 2: Set Up Database
-Make sure MongoDB is running locally (default URI `mongodb://localhost:27017`). The application will automatically create the `InCreEdu` database and seed sample users on first run.
+Make sure your MongoDB Atlas cluster is accessible. The application will automatically create the `InCreEdu` database and seed sample users on first run using the URI in your `.env` file.
 
 ### Step 3: Configure Environment
 Edit `.env` file with your MongoDB connection string:
 ```env
-DB_URI=mongodb://localhost:27017/InCreEdu
+MONGO_URI=mongodb+srv://user:password@cluster.mongodb.net/InCreEdu
 JWT_SECRET=your_jwt_secret_key
-CORS_ORIGIN=http://localhost:3000
+CORS_ORIGIN=https://your-frontend-domain.com,http://localhost:3000
 NODE_ENV=development
 ```
 
@@ -72,7 +72,7 @@ npm start
 npm run dev
 ```
 
-The server will start on `http://localhost:5000`
+The server will start on the port specified in your environment (e.g., `http://localhost:5000` or the Render URL).
 
 ### Step 5: Access the Application
 1. Open `login.html` in your browser
@@ -163,12 +163,12 @@ This will automatically test all major API endpoints:
 ### Manual Testing with curl
 ```bash
 # Test login
-curl -X POST http://localhost:5000/api/login \
+curl -X POST $API_URL/api/login \
   -H "Content-Type: application/json" \
   -d '{"user_id":"LRN123456","password":"demo123","user_type":"learner"}'
 
 # Verify token
-curl -X POST http://localhost:5000/api/verify-token \
+curl -X POST $API_URL/api/verify-token \
   -H "Content-Type: application/json" \
   -d '{"token":"YOUR_JWT_TOKEN"}'
 ```
@@ -309,8 +309,8 @@ npm install
 
 ### "ECONNREFUSED" - Can't connect to backend
 ```bash
-# Make sure MongoDB is running
-# Default: mongodb://localhost:27017
+# Make sure your MongoDB cluster is accessible
+# MONGO_URI in .env must be correct
 
 # Make sure Node server is running
 npm start
@@ -319,7 +319,7 @@ npm start
 ### MongoDB Connection Failed
 Check `.env` file database credentials:
 ```env
-DB_URI=mongodb://localhost:27017/InCreEdu
+MONGO_URI=mongodb+srv://...
 PORT=5000
 ```
 

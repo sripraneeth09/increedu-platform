@@ -22,12 +22,12 @@ d:\gitam\
 ## 🗄️ Database Setup
 
 ### Prerequisites
-- **MongoDB Server** installed and running (default listens on port 27017)
+- **MongoDB Atlas** cluster (Cloud database)
 - **Node.js** (v14 or higher) installed
 
-### Step 1: Start MongoDB
+### Step 1: Configure Cloud Connection
 
-Make sure your MongoDB service is running (`mongod`). The application will connect to the URI specified in `.env` (`mongodb://localhost:27017/InCreEdu` by default) and automatically create the required collections.
+The application connects to your MongoDB Atlas cluster using the URI specified in your `.env` file. It will automatically create the required collections on first run.
 
 ### Step 2: Seed Data
 
@@ -59,7 +59,7 @@ This installs:
 Edit the `.env` file and update MongoDB connection string:
 
 ```env
-DB_URI=mongodb://localhost:27017/InCreEdu
+MONGO_URI=mongodb+srv://user:password@cluster.mongodb.net/InCreEdu
 JWT_SECRET=your_secret_key_here
 ```
 ### Step 3: Start the Server

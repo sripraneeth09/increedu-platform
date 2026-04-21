@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key_change_in_production';
 
 // MongoDB setup
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/InCreEdu';
+const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch(err => console.log(err));
