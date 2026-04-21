@@ -15,13 +15,10 @@ const PORT = process.env.PORT || 5000;
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key_change_in_production';
 
 // MongoDB setup
-const MONGO_URI = process.env.MONGO_URI || process.env.DB_URI || 'mongodb://localhost:27017/InCreEdu';
-mongoose.connect(MONGO_URI).then(() => {
-    console.log('✓ Connected to MongoDB');
-}).catch(err => {
-    console.error('✗ MongoDB connection error:', err.message);
-    process.exit(1);
-});
+const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/InCreEdu';
+mongoose.connect(MONGO_URI)
+  .then(() => console.log("MongoDB Connected"))
+  .catch(err => console.log(err));
 
 /**
  * Mongoose Schemas & Models
@@ -2256,7 +2253,7 @@ app.listen(PORT, () => {
     console.log(`\n╔════════════════════════════════════╗`);
     console.log(`║  InCreEdu Server Started           ║`);
     console.log(`║  Port: ${PORT}${' '.repeat(23 - PORT.toString().length)}║`);
-    console.log(`║  Database: MongoDB (${DB_URI})${' '.repeat(Math.max(0, 15 - DB_URI.length))}║`);
+    console.log(`║  Database: MongoDB (${MONGO_URI})${' '.repeat(Math.max(0, 15 - MONGO_URI.length))}║`);
     console.log(`║  Environment: ${process.env.NODE_ENV || 'development'}${' '.repeat(13 - (process.env.NODE_ENV || 'development').length)}║`);
     console.log(`╚════════════════════════════════════╝\n`);
 });
