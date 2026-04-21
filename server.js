@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
 const multer = require('multer');
+const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
@@ -174,6 +175,16 @@ const courseVideoSchema = new mongoose.Schema({
 });
 const CourseVideo = mongoose.model('CourseVideo', courseVideoSchema);
 
+// Quiz Questions mapped to domains
+const questionSchema = new mongoose.Schema({
+    text: { type: String, required: true },
+    options: [{
+        text: { type: String, required: true },
+        domain: { type: String, required: true, enum: ['tech', 'business', 'creative', 'healthcare', 'education'] } // Matches current logic
+    }]
+}, { collection: 'questions' });
+const Question = mongoose.model('Question', questionSchema);
+
 // Middleware
 app.use(cors());
 app.use(bodyParser.json());
@@ -280,6 +291,174 @@ app.get('/api/health', (req, res) => {
             message: 'Database not connected',
             database: 'MongoDB',
             timestamp: new Date().toISOString()
+        });
+    }
+});
+
+// ==================== QUIZ API ====================
+
+// Clear all questions (Admin use to reset databank)
+app.delete('/api/questions', async (req, res) => {
+    try {
+        const result = await Question.deleteMany({});
+        res.json({ status: 'success', deletedCount: result.deletedCount, message: `Successfully cleared ${result.deletedCount} old questions.` });
+    } catch (err) {
+        console.error('Clear questions error:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// Add Question (Admin or internal use to populate quiz databank)
+app.post('/api/add-question', async (req, res) => {
+    try {
+        const payload = Array.isArray(req.body) ? req.body : [req.body];
+        
+        // Basic validation
+        payload.forEach(q => {
+            if (!q.text || !q.options || q.options.length === 0) {
+                throw new Error("Invalid question format. Must include 'text' and 'options' array.");
+            }
+        });
+
+        const result = await Question.insertMany(payload);
+        res.status(201).json({ status: 'success', insertedCount: result.length, data: result });
+    } catch (err) {
+        console.error('Add question error:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// Get random questions for the assessment
+app.get('/api/questions', async (req, res) => {
+    try {
+        // Fetch 10 random questions from DB using $sample aggregation
+        const questions = await Question.aggregate([{ $sample: { size: 10 } }]);
+        
+        if (!questions || questions.length === 0) {
+            return res.status(404).json({ status: 'error', message: 'No questions found in the database. Please add questions first.' });
+        }
+        
+        res.json({ status: 'success', questions });
+    } catch (err) {
+        console.error('Get questions error:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// Submit generic quiz answers and compute dominant career path
+app.post('/api/submit-answers', async (req, res) => {
+    try {
+        const { answers } = req.body; // e.g., ["tech", "business", "tech"]
+        if (!Array.isArray(answers) || answers.length === 0) {
+            return res.status(400).json({ status: 'error', message: 'Answers array is required and cannot be empty.' });
+        }
+        
+        const counts = {};
+        answers.forEach(domain => {
+            counts[domain] = (counts[domain] || 0) + 1;
+        });
+
+        let maxDomain = answers[0];
+        let maxCount = 0;
+        for (const [domain, count] of Object.entries(counts)) {
+            if (count > maxCount) {
+                maxCount = count;
+                maxDomain = domain;
+            }
+        }
+        
+        res.json({
+            status: 'success',
+            result: maxDomain,
+            score: counts
+        });
+    } catch (err) {
+        console.error('Submit answers error:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
+
+// ==================== EXTERNAL API ====================
+
+// Get Jobs Route (Using free Remotive API)
+// Native fetch is available in Node.js >= 18
+app.get('/api/jobs', async (req, res) => {
+    try {
+        const { domain, location } = req.query;
+        let apiUrl = 'https://remotive.com/api/remote-jobs?limit=15';
+        
+        // Map common domains to better search terms for Remotive
+        let searchDomain = domain;
+        if (domain && typeof domain === 'string') {
+            const cleanDomain = domain.toLowerCase();
+            if (cleanDomain.includes('software') || cleanDomain.includes('web') || cleanDomain.includes('frontend') || cleanDomain.includes('backend')) {
+                searchDomain = 'developer';
+            } else if (cleanDomain.includes('data')) {
+                searchDomain = 'data';
+            } else if (cleanDomain.includes('hardware') || cleanDomain.includes('network') || cleanDomain.includes('cloud')) {
+                searchDomain = 'engineer';
+            } else if (cleanDomain.includes('business') || cleanDomain.includes('management')) {
+                searchDomain = 'product';
+            }
+            apiUrl += `&search=${encodeURIComponent(searchDomain)}`;
+        }
+        
+        console.log(`[Jobs] Fetching for domain: "${domain}", location: "${location}"`);
+        
+        const response = await axios.get(apiUrl, {
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36',
+                'Accept': 'application/json'
+            },
+            timeout: 10000 // 10 second timeout
+        });
+        
+        const data = response.data;
+        
+        let jobs = data.jobs || [];
+        console.log(`[Jobs] Found ${jobs.length} jobs from Remotive`);
+        
+        // Location filtering: Remotive is global/remote, but we can filter by candidate_required_location
+        if (location && location.toLowerCase() !== 'remote' && location.toLowerCase() !== 'anywhere') {
+            const locLower = location.toLowerCase();
+            const originalCount = jobs.length;
+            jobs = jobs.filter(job => {
+                const reqLoc = (job.candidate_required_location || '').toLowerCase();
+                const title = (job.title || '').toLowerCase();
+                return reqLoc.includes(locLower) || 
+                       reqLoc.includes('worldwide') || 
+                       reqLoc.includes('anywhere') || 
+                       reqLoc.includes('global') ||
+                       title.includes(locLower);
+            });
+            console.log(`[Jobs] Filtered from ${originalCount} to ${jobs.length} for location: ${location}`);
+        }
+        
+        // Map to expected format
+        const formattedJobs = jobs.map(job => ({
+            title: job.title,
+            company: job.company_name,
+            location: job.candidate_required_location || 'Remote',
+            type: job.job_type ? job.job_type.replace('_', ' ') : 'Full-time',
+            apply_link: job.url,
+            salary: job.salary || 'Competitive',
+            logo: job.company_logo_url
+        }));
+        
+        res.json({
+            status: 'success',
+            jobs: formattedJobs
+        });
+    } catch (error) {
+        console.error('[Jobs] API Error:', error.message);
+        if (error.response) {
+            console.error('[Jobs] Response Status:', error.response.status);
+        }
+        
+        res.status(500).json({
+            status: 'error',
+            message: 'Failed to fetch job opportunities',
+            details: error.message
         });
     }
 });

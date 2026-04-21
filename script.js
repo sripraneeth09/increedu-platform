@@ -143,14 +143,10 @@ async function checkLoginStatus() {
             });
 
             if (response.ok) {
-                // Token is valid, show logged-in state
+                // Show logged-in state
                 if (userInfo) userInfo.classList.remove('hidden');
                 if (logoutBtn) logoutBtn.classList.remove('hidden');
                 if (loginBtn) loginBtn.classList.add('hidden');
-
-                // Show sync status
-                const syncStatus = document.getElementById('sync-status');
-                if (syncStatus) syncStatus.classList.remove('hidden');
 
                 // Update user display
                 const userNameEl = document.getElementById('user-name');
@@ -434,33 +430,43 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Check immediately after loading if user has existing progress
     if (state.hasExistingProgress && state.selectedRole && state.selectedDomain) {
-        console.log('🔄 Auto-resuming journey for:', state.selectedRole.title);
+        const progress = state.totalTasks > 0 ? 
+            Math.round((state.completedTasks.size / state.totalTasks) * 100) : 0;
+            
+        console.log('🔄 User has existing progress:', progress + '%');
 
-        // SKIP ASSESSMENT - Go directly to roadmap
-        showSection('step-roadmap');
-        initRoadmap();
-
-        // Render the saved level with completed tasks
-        if (state.currentLevel !== null) {
-            setTimeout(() => {
-                const levels = state.selectedRole.roadmap;
-                renderLevelContent(state.currentLevel, levels);
-
-                // Highlight completed tasks
-                state.completedTasks.forEach(taskId => {
-                    const taskCheckbox = document.getElementById(taskId);
-                    if (taskCheckbox) {
-                        taskCheckbox.checked = true;
-                        taskCheckbox.parentElement?.classList.add('task-completed');
+        if (progress === 100) {
+            console.log('🏁 Journey completed, showing opportunities');
+            showSection('step-opportunities');
+            showOpportunities();
+        } else {
+            // Updated: Show landing page but update the button
+            const mainActionBtn = document.getElementById('main-action-btn');
+            if (mainActionBtn) {
+                mainActionBtn.innerHTML = 'Continue My Journey <i class="fas fa-arrow-right ml-2"></i>';
+                mainActionBtn.onclick = () => {
+                    showSection('step-roadmap');
+                    initRoadmap();
+                    
+                    // Render the saved level with completed tasks
+                    if (state.currentLevel !== null) {
+                        setTimeout(() => {
+                            const levels = state.selectedRole.roadmap;
+                            renderLevelContent(state.currentLevel, levels);
+                            
+                            // Highlight completed tasks
+                            state.completedTasks.forEach(taskId => {
+                                const taskCheckbox = document.getElementById(taskId);
+                                if (taskCheckbox) {
+                                    taskCheckbox.checked = true;
+                                    taskCheckbox.parentElement?.classList.add('task-completed');
+                                }
+                            });
+                        }, 50);
                     }
-                });
-
-                console.log('✓ Resumed at level:', state.currentLevel);
-                console.log('✓ Completed tasks highlighted:', state.completedTasks.size);
-
-                // Show welcome back message
-                showNotification(`✓ Welcome back! Continuing from Level ${state.currentLevel + 1}`, 'success');
-            }, 50);
+                };
+            }
+            console.log('✓ Landing page ready with Continue button');
         }
     }
     // If NOT returning user, assessment will show by default (normal flow)
@@ -688,21 +694,10 @@ async function saveGoals() {
     }
 }
 
-// Update UI sync status
+// Update UI sync status (Disabled at user request)
 function updateSyncStatus(message, isSuccess = null) {
-    const syncEl = document.getElementById('sync-status');
-    if (!syncEl) return;
-
-    syncEl.textContent = message;
-    syncEl.className = 'text-xs';
-
-    if (isSuccess === true) {
-        syncEl.className += ' text-green-600';
-    } else if (isSuccess === false) {
-        syncEl.className += ' text-red-600';
-    } else {
-        syncEl.className += ' text-gray-500';
-    }
+    // UI element removed
+    return;
 }
 
 // Show notifications
@@ -718,89 +713,8 @@ function showNotification(message, type = 'success') {
     }, 3000);
 }
 
-// Domain-agnostic questions (NO domain labels in UI)
-const questions = [
-    {
-        text: "What excites you the most?",
-        options: [
-            { text: "Building software & apps", icon: "fa-laptop-code", type: "tech" },
-            { text: "Starting and growing a business", icon: "fa-store", type: "business" },
-            { text: "Creating art, design, or content", icon: "fa-palette", type: "creative" },
-            { text: "Helping people stay healthy", icon: "fa-heartbeat", type: "healthcare" },
-            { text: "Teaching and mentoring others", icon: "fa-chalkboard-teacher", type: "education" }
-        ]
-    },
-    {
-        text: "How do you prefer to solve problems?",
-        options: [
-            { text: "Analyze data and find logical solutions", icon: "fa-chart-line", type: "tech" },
-            { text: "Negotiate and persuade others", icon: "fa-handshake", type: "business" },
-            { text: "Think creatively and outside the box", icon: "fa-lightbulb", type: "creative" },
-            { text: "Provide care and emotional support", icon: "fa-hands-helping", type: "healthcare" },
-            { text: "Break down complex ideas simply", icon: "fa-brain", type: "education" }
-        ]
-    },
-    {
-        text: "What's your ideal work environment?",
-        options: [
-            { text: "Quiet, focused, with cutting-edge tools", icon: "fa-server", type: "tech" },
-            { text: "Fast-paced, competitive, results-driven", icon: "fa-tachometer-alt", type: "business" },
-            { text: "Collaborative, expressive, flexible", icon: "fa-users", type: "creative" },
-            { text: "Caring, supportive, making a difference", icon: "fa-hospital", type: "healthcare" },
-            { text: "Structured, knowledge-sharing, growth-oriented", icon: "fa-school", type: "education" }
-        ]
-    },
-    {
-        text: "Which activity sounds most appealing?",
-        options: [
-            { text: "Coding a new app or fixing technical issues", icon: "fa-code", type: "tech" },
-            { text: "Leading a team or closing a deal", icon: "fa-bullhorn", type: "business" },
-            { text: "Designing a logo or filming a video", icon: "fa-camera", type: "creative" },
-            { text: "Diagnosing symptoms or counseling patients", icon: "fa-stethoscope", type: "healthcare" },
-            { text: "Preparing lessons or tutoring learners", icon: "fa-book-reader", type: "education" }
-        ]
-    },
-    {
-        text: "What would you do with $10,000?",
-        options: [
-            { text: "Invest in new technology or equipment", icon: "fa-microchip", type: "tech" },
-            { text: "Start a side business or invest in stocks", icon: "fa-rocket", type: "business" },
-            { text: "Create a portfolio or buy creative tools", icon: "fa-paint-brush", type: "creative" },
-            { text: "Donate to health causes or get certified", icon: "fa-hand-holding-heart", type: "healthcare" },
-            { text: "Take advanced courses or get a degree", icon: "fa-graduation-cap", type: "education" }
-        ]
-    },
-    {
-        text: "What do friends ask you for help with?",
-        options: [
-            { text: "Fixing tech problems or app recommendations", icon: "fa-tools", type: "tech" },
-            { text: "Business advice or financial planning", icon: "fa-coins", type: "business" },
-            { text: "Creative ideas or design feedback", icon: "fa-magic", type: "creative" },
-            { text: "Health tips or emotional support", icon: "fa-user-md", type: "healthcare" },
-            { text: "Homework help or explaining concepts", icon: "fa-apple-alt", type: "education" }
-        ]
-    },
-    {
-        text: "Choose a weekend activity:",
-        options: [
-            { text: "Building a side project or gaming", icon: "fa-gamepad", type: "tech" },
-            { text: "Networking events or reading business books", icon: "fa-book", type: "business" },
-            { text: "Photography, writing, or crafting", icon: "fa-pen-fancy", type: "creative" },
-            { text: "Volunteering at clinics or fitness activities", icon: "fa-running", type: "healthcare" },
-            { text: "Online courses or teaching workshops", icon: "fa-video", type: "education" }
-        ]
-    },
-    {
-        text: "What's your ultimate goal?",
-        options: [
-            { text: "Build innovative technology that changes lives", icon: "fa-robot", type: "tech" },
-            { text: "Achieve financial freedom and independence", icon: "fa-chart-line", type: "business" },
-            { text: "Create work that inspires millions", icon: "fa-star", type: "creative" },
-            { text: "Make a tangible difference in people's health", icon: "fa-heart", type: "healthcare" },
-            { text: "Shape the next generation of thinkers", icon: "fa-seedling", type: "education" }
-        ]
-    }
-];
+// Dynamic Questions (Loaded from backend API)
+let questions = [];
 
 // Map teacher form domain values to domains config keys (and vice versa)
 const DOMAIN_FORM_TO_KEY = { Technology: 'tech', Business: 'business', Creative: 'creative', Healthcare: 'healthcare', Education: 'education' };
@@ -1257,8 +1171,54 @@ function showSection(id) {
     window.scrollTo(0, 0);
 }
 
-function startAssessment() {
+async function startAssessment() {
+    // Check if user is logged in before starting
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+    if (!isLoggedIn) {
+        window.location.href = 'login.html';
+        return;
+    }
+
     showSection('step-assessment');
+    
+    // Add loading visuals while fetching questions
+    const qText = document.getElementById('question-text');
+    const grid = document.getElementById('options-grid');
+    const nextBtn = document.getElementById('next-btn');
+    const backBtn = document.getElementById('back-btn');
+    
+    // Save original if needed
+    qText.textContent = "Loading your assessment...";
+    grid.innerHTML = `<div class="col-span-1 md:col-span-3 text-center py-8"><i class="fas fa-circle-notch fa-spin text-4xl text-brand-blue"></i></div>`;
+    nextBtn.style.display = 'none';
+    backBtn.style.display = 'none';
+
+    try {
+        const res = await fetch(`${API_BASE_URL}/questions`);
+        if (!res.ok) throw new Error('Failed to fetch questions');
+        const data = await res.json();
+        
+        if (data.status === 'success' && data.questions && data.questions.length > 0) {
+            questions = data.questions;
+        } else {
+            qText.textContent = "No questions found. Please try again later.";
+            grid.innerHTML = '';
+            return;
+        }
+    } catch (e) {
+        console.error("Error loading questions from DB:", e);
+        qText.textContent = "Connection error. Please try again later.";
+        grid.innerHTML = '';
+        return;
+    }
+    
+    // Reset state for new quiz
+    state.currentQuestion = 0;
+    state.selectedAnswers = []; // This will hold the user's selected domains
+
+    // Restore buttons and start
+    nextBtn.style.display = 'inline-flex';
+    backBtn.style.display = 'inline-flex';
     renderQuestion(0);
 }
 
@@ -1273,27 +1233,38 @@ function renderQuestion(index) {
     document.getElementById('progress-bar').style.width = progress + '%';
     document.getElementById('back-btn').style.visibility = index === 0 ? 'hidden' : 'visible';
 
-    document.getElementById('question-text').textContent = q.text;
+    document.getElementById('question-text').textContent = q.text || q.questionText || "Question text missing";
 
     const grid = document.getElementById('options-grid');
     grid.innerHTML = '';
 
-    q.options.forEach((opt, i) => {
+    const opts = q.options || q.answers || [];
+    opts.forEach((opt, i) => {
         const btn = document.createElement('button');
         btn.className = 'option-card bg-white rounded-2xl p-6 text-center card-shadow card-hover animate-slide-up';
         btn.style.animationDelay = `${i * 100}ms`;
-        btn.onclick = () => selectOption(opt.type, btn);
+        
+        const type = opt.domain || opt.type;
+        btn.onclick = () => selectOption(type, btn);
+        
         btn.innerHTML = `
-            <div class="w-14 h-14 mx-auto mb-4 rounded-xl bg-gray-100 flex items-center justify-center text-2xl text-gray-600 group-hover:text-brand-blue">
-                <i class="fas ${opt.icon}"></i>
-            </div>
-            <h3 class="font-semibold text-gray-900 text-sm">${opt.text}</h3>
+            <h3 class="font-semibold text-gray-900 text-base flex items-center justify-center h-full">${opt.text}</h3>
         `;
+        
+        // Re-select if user navigated back
+        if (state.selectedAnswers[index] === type) {
+            btn.classList.add('selected');
+            state.tempSelection = type;
+            document.getElementById('next-btn').disabled = false;
+        }
+        
         grid.appendChild(btn);
     });
 
-    document.getElementById('next-btn').disabled = true;
-    state.tempSelection = null;
+    if (!state.selectedAnswers[index]) {
+        document.getElementById('next-btn').disabled = true;
+        state.tempSelection = null;
+    }
 }
 
 function selectOption(type, btn) {
@@ -1305,7 +1276,7 @@ function selectOption(type, btn) {
 
 function nextQuestion() {
     if (state.tempSelection) {
-        state.scores[state.tempSelection]++;
+        state.selectedAnswers[state.currentQuestion] = state.tempSelection;
     }
     if (state.currentQuestion < questions.length - 1) {
         renderQuestion(state.currentQuestion + 1);
@@ -1320,15 +1291,36 @@ function prevQuestion() {
     }
 }
 
-function showResults() {
+async function showResults() {
     showSection('step-results');
 
-    // Find max score
-    const entries = Object.entries(state.scores);
-    const maxScore = Math.max(...entries.map(e => e[1]));
-    const [domainKey] = entries.find(e => e[1] === maxScore);
+    // Show loading state for results
+    document.getElementById('career-title').textContent = 'Analyzing Results...';
+    document.getElementById('result-icon').className = `fas fa-spinner fa-spin text-brand-blue`;
+    document.getElementById('career-description').textContent = 'Calculating your best career fit based on your responses.';
+    document.getElementById('strengths-list').innerHTML = '';
 
-    state.selectedDomain = domainKey;
+    try {
+        const response = await fetch(`${API_BASE_URL}/submit-answers`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ answers: state.selectedAnswers })
+        });
+        
+        if (!response.ok) throw new Error('Failed to submit answers');
+        
+        const data = await response.json();
+        if (data.status === 'success' && data.result) {
+            state.selectedDomain = data.result;
+        } else {
+            state.selectedDomain = 'tech'; // fallback
+        }
+    } catch (e) {
+        console.error('Submit answers error:', e);
+        state.selectedDomain = 'tech'; // fallback
+    }
+
+    const domainKey = state.selectedDomain;
     const domain = domains[domainKey];
 
     // Update UI - NO SCORES SHOWN, only recommendation
@@ -1776,8 +1768,15 @@ function continueRoadmap() {
 }
 
 function completeRoadmap() {
-    // Don't force save here - will be auto-saved
-    // Showing completion immediately provides better UX
+    // Check if ALL tasks are completed
+    if (state.completedTasks.size < state.totalTasks) {
+        showNotification(`Please complete all activities before finishing the path. (${state.completedTasks.size}/${state.totalTasks} completed)`, 'warning');
+        
+        // Find first incomplete level and scroll to it
+        // This is a nice-to-have UX improvement
+        console.log('⚠️ Completion blocked: Not all tasks finished');
+        return;
+    }
 
     showSection('step-completion');
     document.getElementById('completion-role').textContent = state.selectedRole.title;
@@ -1796,44 +1795,138 @@ function completeRoadmap() {
 
 function showOpportunities() {
     showSection('step-opportunities');
+    
+    // Automatically fetch jobs on first load for the selected role
+    const roleTitle = typeof state.selectedRole === 'object' ? state.selectedRole.title : state.selectedRole;
+    if (roleTitle) {
+        // Set default location to Remote to cast a wide net with Remotive API initially
+        const locInput = document.getElementById('job-location-input');
+        if (locInput && !locInput.value) locInput.value = 'Remote';
+        fetchDynamicJobs(roleTitle, locInput ? locInput.value : 'Remote');
+    }
+}
 
-    const opps = state.selectedRole.opportunities || [];
+async function fetchDynamicJobs(domainOverride = null, locationOverride = null) {
     const container = document.getElementById('opportunities-list');
-    container.innerHTML = '';
+    const loading = document.getElementById('job-loading-indicator');
+    const errorMsg = document.getElementById('job-error-message');
+    
+    // Clear previous
+    if (container) container.innerHTML = '';
+    if (errorMsg) errorMsg.classList.add('hidden');
+    if (loading) loading.classList.remove('hidden');
+    
+    // Get search params
+    // Using domainOverride if passed (e.g. from showOpportunities initial call), otherwise selectedRole
+    let domain = domainOverride || (typeof state.selectedRole === 'object' ? state.selectedRole.title : state.selectedRole);
+    // Map internal domains/roles to better search terms for Remotive (optional but helps)
+    if (domain === 'Software Developer' || domain === 'Web Developer' || domain === 'Frontend') domain = 'developer';
+    if (domain === 'Data Scientist') domain = 'data';
+    
+    const locationInput = document.getElementById('job-location-input')?.value;
+    const location = locationOverride || locationInput || '';
+    
+    try {
+        const queryParams = new URLSearchParams({ domain });
+        if (location) queryParams.append('location', location);
+        
+        const response = await fetch(`${API_BASE_URL}/jobs?${queryParams}`);
+        if (!response.ok) throw new Error('API request failed');
+        
+        const data = await response.json();
+        
+        if (loading) loading.classList.add('hidden');
+        
+        if (data.status === 'success' && data.jobs && data.jobs.length > 0) {
+            renderDynamicJobs(data.jobs);
+        } else {
+            if (errorMsg) errorMsg.classList.remove('hidden');
+            const errText = document.getElementById('job-error-text');
+            if (errText) errText.textContent = 'No jobs found matching your criteria. Try adjusting the location or exploring remote roles.';
+        }
+    } catch (e) {
+        console.error('Error fetching dynamic jobs:', e);
+        if (loading) loading.classList.add('hidden');
+        if (errorMsg) errorMsg.classList.remove('hidden');
+        const errText = document.getElementById('job-error-text');
+        if (errText) errText.textContent = 'Failed to connect to the job server. Please try again later.';
+    }
+}
 
-    opps.forEach((opp, i) => {
+function renderDynamicJobs(jobs) {
+    const container = document.getElementById('opportunities-list');
+    if (!container) return;
+    container.innerHTML = '';
+    
+    jobs.forEach((opp, i) => {
         const div = document.createElement('div');
         div.className = 'bg-white rounded-2xl p-6 card-shadow card-hover flex flex-col md:flex-row items-center gap-6 animate-slide-up';
-        div.style.animationDelay = `${i * 100}ms`;
+        div.style.animationDelay = `${(i % 5) * 100}ms`;
 
-        const isSalary = opp.salary;
-        const detailText = isSalary ? `<i class="fas fa-dollar-sign mr-1"></i>${opp.salary}` : `<i class="fas fa-coins mr-1"></i>${opp.investment}`;
+        // We use default icons based on type if no logo is provided
+        const logoHtml = opp.logo 
+            ? `<div class="w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 border border-gray-100 bg-white"><img src="${opp.logo}" alt="${opp.company}" class="w-full h-full object-contain p-1" onerror="this.onerror=null; this.src='https://via.placeholder.com/64?text=${opp.company.substring(0,2)}';"></div>`
+            : `<div class="w-16 h-16 rounded-xl bg-gradient-to-br from-brand-blue to-brand-dark flex items-center justify-center text-2xl text-white flex-shrink-0 font-bold">${opp.company.substring(0,1)}</div>`;
 
         div.innerHTML = `
-            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-blue to-brand-dark flex items-center justify-center text-3xl text-white flex-shrink-0">
-                <i class="fas ${isSalary ? 'fa-briefcase' : 'fa-store'}"></i>
-            </div>
-            <div class="flex-1 text-center md:text-left">
-                <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
-                    <h3 class="font-bold text-xl text-gray-900">${opp.name}</h3>
-                    <span class="px-2 py-0.5 rounded bg-gray-100 text-gray-600 text-xs">${opp.type}</span>
+            ${logoHtml}
+            <div class="flex-1 text-center md:text-left w-full">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
+                    <h3 class="font-bold text-lg md:text-xl text-gray-900 line-clamp-1" title="${opp.title}">${opp.title}</h3>
+                    <span class="px-2 py-0.5 rounded bg-blue-50 text-brand-blue text-xs font-semibold uppercase tracking-wider">${opp.type || 'Full-time'}</span>
                 </div>
-                <p class="text-gray-500 text-sm mb-2">${opp.company}</p>
+                <p class="text-gray-500 text-sm font-medium mb-3">${opp.company}</p>
                 <div class="flex flex-wrap gap-2 justify-center md:justify-start">
-                    <span class="px-3 py-1 rounded-full bg-blue-50 text-brand-blue text-xs font-medium">
-                        <i class="fas fa-map-marker-alt mr-1"></i>${opp.location}
+                    <span class="px-3 py-1.5 rounded-full bg-gray-50 text-gray-700 text-xs font-medium flex items-center shadow-sm">
+                        <i class="fas fa-map-marker-alt text-brand-orange mr-1.5"></i>${opp.location || 'Remote'}
                     </span>
-                    <span class="px-3 py-1 rounded-full bg-orange-50 text-orange-600 text-xs font-medium">
-                        ${detailText}
-                    </span>
+                    ${opp.salary && opp.salary !== 'Competitive' ? `
+                    <span class="px-3 py-1.5 rounded-full bg-green-50 text-green-700 text-xs font-medium flex items-center shadow-sm">
+                        <i class="fas fa-dollar-sign mr-1"></i>${opp.salary}
+                    </span>` : ''}
                 </div>
             </div>
-            <button class="px-6 py-2.5 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-medium transition-all text-sm whitespace-nowrap">
-                Apply Now
-            </button>
+            <a href="${opp.apply_link}" target="_blank" rel="noopener noreferrer" class="w-full md:w-auto px-8 py-3 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-semibold transition-all text-sm whitespace-nowrap text-center shadow-md hover:shadow-lg transform hover:-translate-y-0.5">
+                Apply Now <i class="fas fa-external-link-alt ml-1"></i>
+            </a>
         `;
         container.appendChild(div);
     });
+}
+
+function getUserLocation() {
+    if (!navigator.geolocation) {
+        alert("Geolocation is not supported by your browser");
+        return;
+    }
+    
+    const locInput = document.getElementById('job-location-input');
+    if (locInput) locInput.value = 'Locating...';
+    
+    navigator.geolocation.getCurrentPosition(
+        async (position) => {
+            try {
+                // Reverse geocode to get city name using free BigDataCloud API
+                const { latitude, longitude } = position.coords;
+                const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${latitude}&longitude=${longitude}&localityLanguage=en`);
+                const data = await response.json();
+                
+                const city = data.city || data.locality || data.principalSubdivision || 'Local';
+                if (locInput) locInput.value = city;
+                fetchDynamicJobs(); // Trigger refresh with new location
+            } catch (err) {
+                console.error("Geocoding failed", err);
+                if (locInput) locInput.value = 'Remote';
+                fetchDynamicJobs();
+            }
+        },
+        (error) => {
+            console.error("Error getting location", error);
+            if (locInput) locInput.value = 'Remote';
+            alert("Unable to retrieve your location. Showing remote jobs instead.");
+            fetchDynamicJobs();
+        }
+    );
 }
 
 // Goal Allocation Functions

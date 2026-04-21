@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>InCreEdu - Discover Your Perfect Career</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link href="styles.css" rel="stylesheet">
     <script>
         tailwind.config = {
@@ -34,18 +36,20 @@
         }
     </script>
 </head>
+
 <body class="text-gray-800 antialiased overflow-x-hidden">
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full bg-white/90 backdrop-blur-md border-b border-gray-200 z-50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-gradient-to-br from-brand-blue to-brand-dark rounded-lg flex items-center justify-center text-white font-bold">
+                <div
+                    class="w-8 h-8 bg-gradient-to-br from-brand-blue to-brand-dark rounded-lg flex items-center justify-center text-white font-bold">
                     <i class="fas fa-compass text-sm"></i>
                 </div>
                 <span class="font-bold text-xl text-gray-900">InCreEdu</span>
             </div>
-    
+
             <div class="flex items-center gap-4">
                 <div id="user-info" class="hidden md:flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-lg">
                     <i class="fas fa-user-circle text-brand-blue text-lg"></i>
@@ -54,13 +58,15 @@
                         <p class="text-xs text-gray-500" id="user-type">Learner</p>
                     </div>
                 </div>
-                <div id="sync-status" class="hidden md:block text-xs text-gray-500 px-3 py-1 rounded bg-gray-50">
-                    Ready
-                </div>
-                <button id="logout-btn" class="hidden px-4 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition-colors text-sm flex items-center gap-2" onclick="handleLogout()">
+
+                <button id="logout-btn"
+                    class="hidden px-4 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition-colors text-sm flex items-center gap-2"
+                    onclick="handleLogout()">
                     <i class="fas fa-sign-out-alt"></i>Logout
                 </button>
-                <button id="login-btn" class="px-4 py-2 rounded-lg bg-brand-blue hover:bg-blue-600 text-white font-semibold transition-colors text-sm flex items-center gap-2" onclick="window.location.href='login.html'">
+                <button id="login-btn"
+                    class="px-4 py-2 rounded-lg bg-brand-blue hover:bg-blue-600 text-white font-semibold transition-colors text-sm flex items-center gap-2"
+                    onclick="window.location.href='login.html'">
                     <i class="fas fa-sign-in-alt"></i>Login
                 </button>
             </div>
@@ -70,11 +76,13 @@
     <main class="pt-20 pb-12 px-4 min-h-screen">
 
         <!-- Teacher Dashboard (hidden by default, shown for verified teachers) -->
-        <section id="teacher-section" class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 mb-8">
+        <section id="teacher-section"
+            class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl p-8 mb-8">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Teacher Dashboard</h2>
                 <div class="flex items-center gap-4">
-                    <div id="teacher-verify-status" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
+                    <div id="teacher-verify-status"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 font-semibold">
                         <i class="fas fa-check-circle"></i> Verified Teacher
                     </div>
                     <p class="text-gray-600">Create and manage courses for learners across different levels</p>
@@ -82,13 +90,16 @@
             </div>
 
             <!-- Verification Request (shown when teacher is not verified) -->
-            <div id="teacher-verification-request" class="hidden mb-8 bg-white rounded-2xl p-6 shadow-md border border-yellow-200">
+            <div id="teacher-verification-request"
+                class="hidden mb-8 bg-white rounded-2xl p-6 shadow-md border border-yellow-200">
                 <div class="flex items-start justify-between gap-4 mb-4">
                     <div>
                         <h3 class="text-xl font-bold text-gray-900">Get Verified to Upload Videos</h3>
-                        <p class="text-sm text-gray-600 mt-1">Submit your details for admin approval. Once approved, you can upload videos only to your assigned domain(s).</p>
+                        <p class="text-sm text-gray-600 mt-1">Submit your details for admin approval. Once approved, you
+                            can upload videos only to your assigned domain(s).</p>
                     </div>
-                    <div class="px-3 py-1 rounded-full bg-yellow-50 text-yellow-800 text-xs font-semibold border border-yellow-200">
+                    <div
+                        class="px-3 py-1 rounded-full bg-yellow-50 text-yellow-800 text-xs font-semibold border border-yellow-200">
                         Pending / Not Verified
                     </div>
                 </div>
@@ -96,7 +107,8 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Primary Domain *</label>
-                            <select id="teacher-primary-domain" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
+                            <select id="teacher-primary-domain" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
                                 <option value="">Select Domain</option>
                                 <option value="Technology">Technology</option>
                                 <option value="Business">Business</option>
@@ -108,26 +120,29 @@
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Years of Experience</label>
                             <input type="number" id="teacher-years-exp" placeholder="e.g., 3" min="0"
-                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
                         </div>
                     </div>
                     <div class="mt-4">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Credentials *</label>
-                        <textarea id="teacher-credentials" required rows="3" placeholder="Your qualification, expertise, achievements, etc."
-                                  class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue"></textarea>
+                        <textarea id="teacher-credentials" required rows="3"
+                            placeholder="Your qualification, expertise, achievements, etc."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue"></textarea>
                     </div>
                     <div class="mt-4">
-                        <label class="block text-sm font-semibold text-gray-700 mb-2">Supporting Documents (links, comma-separated)</label>
+                        <label class="block text-sm font-semibold text-gray-700 mb-2">Supporting Documents (links,
+                            comma-separated)</label>
                         <input type="text" id="teacher-doc-links" placeholder="https://... , https://..."
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
                     </div>
                     <div class="mt-4">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">Notes (optional)</label>
                         <input type="text" id="teacher-notes" placeholder="Any extra info for the admin"
-                               class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
                     </div>
                     <div class="flex items-center gap-4 mt-6">
-                        <button type="submit" class="px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
+                        <button type="submit"
+                            class="px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
                             <i class="fas fa-paper-plane"></i> Submit for Verification
                         </button>
                         <p id="teacher-verification-feedback" class="text-sm"></p>
@@ -137,13 +152,17 @@
 
             <!-- Tab Navigation -->
             <div class="flex gap-4 mb-8 border-b border-gray-200">
-                <button class="teacher-tab-btn active px-4 py-2 font-semibold text-gray-900 border-b-2 border-brand-blue" data-tab="upload">
+                <button
+                    class="teacher-tab-btn active px-4 py-2 font-semibold text-gray-900 border-b-2 border-brand-blue"
+                    data-tab="upload">
                     <i class="fas fa-plus-circle mr-2"></i>Upload Course
                 </button>
-                <button class="teacher-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900" data-tab="manage">
+                <button class="teacher-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                    data-tab="manage">
                     <i class="fas fa-list-check mr-2"></i>Manage Courses
                 </button>
-                <button class="teacher-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900" data-tab="analytics">
+                <button class="teacher-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                    data-tab="analytics">
                     <i class="fas fa-chart-bar mr-2"></i>Analytics
                 </button>
             </div>
@@ -152,18 +171,22 @@
             <div id="teacher-upload-tab" class="teacher-tab-content">
                 <div class="bg-white rounded-2xl p-6 shadow-md">
                     <h3 class="text-xl font-bold text-gray-900 mb-6">Create New Course</h3>
-                    <form id="upload-course-form" onsubmit="event.preventDefault(); handleCourseUpload(event); return false;">
+                    <form id="upload-course-form"
+                        onsubmit="event.preventDefault(); handleCourseUpload(event); return false;">
                         <input type="hidden" id="edit-course-id">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Subtopic (Course Title) *</label>
-                                <select id="course-title" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Subtopic (Course Title)
+                                    *</label>
+                                <select id="course-title" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
                                     <option value="">Select Level first</option>
                                 </select>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Domain *</label>
-                                <select id="course-domain" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
+                                <select id="course-domain" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
                                     <option value="">Select Domain</option>
                                     <option value="Technology">Technology</option>
                                     <option value="Business">Business</option>
@@ -174,15 +197,18 @@
                             </div>
 
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Career Path (Sub-path) *</label>
-                                <select id="course-role" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Career Path (Sub-path)
+                                    *</label>
+                                <select id="course-role" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
                                     <option value="">Select Domain first</option>
                                 </select>
                                 <p class="text-xs text-gray-500 mt-1">Same options learners see for this domain</p>
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Level (1-4) *</label>
-                                <select id="course-level" required class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
+                                <select id="course-level" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue">
                                     <option value="">Select Level</option>
                                     <option value="1">Level 1 - Beginner</option>
                                     <option value="2">Level 2 - Intermediate</option>
@@ -195,13 +221,14 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Video File *</label>
-                                <input type="file" id="course-video-file" name="video_file" accept="video/mp4,video/x-m4v,video/*" required
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
+                                <input type="file" id="course-video-file" name="video_file"
+                                    accept="video/mp4,video/x-m4v,video/*" required
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
                             </div>
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Thumbnail URL</label>
                                 <input type="url" id="course-thumbnail-url" placeholder="https://..."
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
                             </div>
                         </div>
 
@@ -209,26 +236,30 @@
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Duration (minutes)</label>
                                 <input type="number" id="course-duration" placeholder="45" min="1"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
                             </div>
                             <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tags (comma-separated)</label>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">Tags
+                                    (comma-separated)</label>
                                 <input type="text" id="course-tags" placeholder="javascript, html, css"
-                                       class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
+                                    class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue" />
                             </div>
                         </div>
 
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-                            <textarea id="course-description" placeholder="Describe your course content and learning outcomes..."
-                                      rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue"></textarea>
+                            <textarea id="course-description"
+                                placeholder="Describe your course content and learning outcomes..." rows="4"
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-brand-blue"></textarea>
                         </div>
 
                         <div class="flex gap-4 mt-6">
-                            <button id="upload-course-btn" type="submit" class="px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
+                            <button id="upload-course-btn" type="submit"
+                                class="px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
                                 <i class="fas fa-cloud-upload-alt"></i> Upload Course
                             </button>
-                            <button type="button" onclick="resetUploadForm()" class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-900 rounded-lg font-semibold transition-colors">
+                            <button type="button" onclick="resetUploadForm()"
+                                class="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-900 rounded-lg font-semibold transition-colors">
                                 Clear Form
                             </button>
                         </div>
@@ -259,11 +290,13 @@
         </section>
 
         <!-- Admin Dashboard (hidden by default, shown for verified admins) -->
-        <section id="admin-section" class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-red-50 to-pink-50 rounded-3xl p-8 mb-8">
+        <section id="admin-section"
+            class="max-w-6xl mx-auto section-hidden bg-gradient-to-br from-red-50 to-pink-50 rounded-3xl p-8 mb-8">
             <div class="mb-8">
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Admin Dashboard</h2>
                 <div class="flex items-center gap-4">
-                    <div id="admin-status" class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 font-semibold">
+                    <div id="admin-status"
+                        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 font-semibold">
                         <i class="fas fa-user-shield"></i> System Administrator
                     </div>
                     <p class="text-gray-600">Manage users, monitor progress, and oversee system operations</p>
@@ -272,19 +305,24 @@
 
             <!-- Tab Navigation -->
             <div class="flex gap-4 mb-8 border-b border-gray-200">
-                <button class="admin-tab-btn active px-4 py-2 font-semibold text-gray-900 border-b-2 border-red-500" data-tab="overview">
+                <button class="admin-tab-btn active px-4 py-2 font-semibold text-gray-900 border-b-2 border-red-500"
+                    data-tab="overview">
                     <i class="fas fa-tachometer-alt mr-2"></i>Overview
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900" data-tab="users">
+                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                    data-tab="users">
                     <i class="fas fa-users mr-2"></i>Manage Users
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900" data-tab="verifications">
+                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                    data-tab="verifications">
                     <i class="fas fa-user-check mr-2"></i>Teacher Verifications
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900" data-tab="progress">
+                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                    data-tab="progress">
                     <i class="fas fa-chart-line mr-2"></i>Progress Tracking
                 </button>
-                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900" data-tab="courses">
+                <button class="admin-tab-btn px-4 py-2 font-semibold text-gray-600 hover:text-gray-900"
+                    data-tab="courses">
                     <i class="fas fa-book mr-2"></i>Course Management
                 </button>
             </div>
@@ -351,7 +389,8 @@
                 <div class="bg-white rounded-xl p-6 shadow-md">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-900">User Management</h3>
-                        <button onclick="loadAdminUsers()" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors">
+                        <button onclick="loadAdminUsers()"
+                            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors">
                             <i class="fas fa-sync mr-2"></i>Refresh
                         </button>
                     </div>
@@ -366,7 +405,8 @@
                 <div class="bg-white rounded-xl p-6 shadow-md">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-bold text-gray-900">Teacher Verification Queue</h3>
-                        <button onclick="loadAdminVerificationQueue()" class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors">
+                        <button onclick="loadAdminVerificationQueue()"
+                            class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg font-semibold transition-colors">
                             <i class="fas fa-sync mr-2"></i>Refresh
                         </button>
                     </div>
@@ -398,14 +438,16 @@
         </section>
 
         <!-- Learner Course Discovery Section -->
-        <section id="learner-courses-section" class="max-w-6xl mx-auto section-hidden bg-white rounded-3xl p-8 mb-8 shadow-md">
+        <section id="learner-courses-section"
+            class="max-w-6xl mx-auto section-hidden bg-white rounded-3xl p-8 mb-8 shadow-md">
             <div class="mb-8">
                 <div class="flex items-center justify-between gap-4 flex-wrap">
                     <div>
                         <h2 class="text-3xl font-bold text-gray-900 mb-2">Learning Courses</h2>
                         <p class="text-gray-600">Courses tailored to your level and domain</p>
                     </div>
-                    <button onclick="loadLearnerCourses()" class="px-4 py-2 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
+                    <button onclick="loadLearnerCourses()"
+                        class="px-4 py-2 bg-brand-blue hover:bg-blue-600 text-white rounded-lg font-semibold transition-colors flex items-center gap-2">
                         <i class="fas fa-sync-alt"></i> Refresh
                     </button>
                 </div>
@@ -423,76 +465,96 @@
         <section id="step-landing" class="max-w-6xl mx-auto section-visible">
             <div class="grid md:grid-cols-2 gap-12 items-center mt-8">
                 <div class="animate-slide-up">
-                    
+
                     <h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">
-                        Education that adapts to your <span class="text-brand-blue">interest,</span><br>not a common syllabus.
+                        Education that adapts to your <span class="text-brand-blue">interest,</span><br>not a common
+                        syllabus.
                     </h1>
                     <p class="text-lg text-gray-600 mb-8 leading-relaxed">
-                        Traditional education teaches everyone the same thing. Discover your unique strengths and build a personalized career path designed specifically for you.
+                        Traditional education teaches everyone the same thing. Discover your unique strengths and build
+                        a personalized career path designed specifically for you.
                     </p>
-                    <button onclick="startAssessment()" class="px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
+                    <button id="main-action-btn" onclick="startAssessment()"
+                        class="px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
                         Begin My Journey <i class="fas fa-arrow-right ml-2"></i>
                     </button>
-                    
+
                     <div class="flex gap-8 mt-10">
-                        <div><div class="text-2xl font-bold text-gray-900">98%</div><div class="text-sm text-gray-500">Match Accuracy</div></div>
-                        <div><div class="text-2xl font-bold text-gray-900">2-3 min</div><div class="text-sm text-gray-500">Quick Assessment</div></div>
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900">98%</div>
+                            <div class="text-sm text-gray-500">Match Accuracy</div>
+                        </div>
+                        <div>
+                            <div class="text-2xl font-bold text-gray-900">2-3 min</div>
+                            <div class="text-sm text-gray-500">Quick Assessment</div>
+                        </div>
                     </div>
                 </div>
-                
+
                 <div class="relative animate-float">
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-orange/20 rounded-3xl transform rotate-3"></div>
+                    <div
+                        class="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-orange/20 rounded-3xl transform rotate-3">
+                    </div>
                     <div class="relative bg-white rounded-3xl p-6 card-shadow">
                         <!-- Changed Illustration -->
                         <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 mb-6 text-center">
                             <svg viewBox="0 0 400 300" class="w-full h-auto">
                                 <!-- Background Elements -->
-                                <circle cx="200" cy="150" r="120" fill="#E0E7FF" opacity="0.5"/>
-                                <circle cx="150" cy="100" r="20" fill="#C7D2FE" opacity="0.6"/>
-                                <circle cx="300" cy="80" r="15" fill="#C7D2FE" opacity="0.6"/>
-                                <circle cx="320" cy="200" r="25" fill="#C7D2FE" opacity="0.6"/>
-                                
+                                <circle cx="200" cy="150" r="120" fill="#E0E7FF" opacity="0.5" />
+                                <circle cx="150" cy="100" r="20" fill="#C7D2FE" opacity="0.6" />
+                                <circle cx="300" cy="80" r="15" fill="#C7D2FE" opacity="0.6" />
+                                <circle cx="320" cy="200" r="25" fill="#C7D2FE" opacity="0.6" />
+
                                 <!-- Person -->
-                                <ellipse cx="200" cy="280" rx="80" ry="20" fill="#DDD6FE" opacity="0.5"/>
-                                <rect x="170" y="140" width="60" height="80" rx="30" fill="#F59E0B"/>
-                                <circle cx="200" cy="120" r="35" fill="#FDBA74"/>
-                                <path d="M 170 120 Q 200 160 230 120" fill="none" stroke="#F97316" stroke-width="3"/>
-                                <circle cx="190" cy="115" r="4" fill="#1F2937"/>
-                                <circle cx="210" cy="115" r="4" fill="#1F2937"/>
-                                <path d="M 195 125 Q 200 130 205 125" fill="none" stroke="#1F2937" stroke-width="2" stroke-linecap="round"/>
-                                
+                                <ellipse cx="200" cy="280" rx="80" ry="20" fill="#DDD6FE" opacity="0.5" />
+                                <rect x="170" y="140" width="60" height="80" rx="30" fill="#F59E0B" />
+                                <circle cx="200" cy="120" r="35" fill="#FDBA74" />
+                                <path d="M 170 120 Q 200 160 230 120" fill="none" stroke="#F97316" stroke-width="3" />
+                                <circle cx="190" cy="115" r="4" fill="#1F2937" />
+                                <circle cx="210" cy="115" r="4" fill="#1F2937" />
+                                <path d="M 195 125 Q 200 130 205 125" fill="none" stroke="#1F2937" stroke-width="2"
+                                    stroke-linecap="round" />
+
                                 <!-- Arms holding items -->
-                                <path d="M 165 160 Q 140 180 130 150" fill="none" stroke="#FDBA74" stroke-width="12" stroke-linecap="round"/>
-                                <path d="M 235 160 Q 260 180 270 150" fill="none" stroke="#FDBA74" stroke-width="12" stroke-linecap="round"/>
-                                
+                                <path d="M 165 160 Q 140 180 130 150" fill="none" stroke="#FDBA74" stroke-width="12"
+                                    stroke-linecap="round" />
+                                <path d="M 235 160 Q 260 180 270 150" fill="none" stroke="#FDBA74" stroke-width="12"
+                                    stroke-linecap="round" />
+
                                 <!-- Left hand: Tech (Laptop) -->
-                                <rect x="110" y="130" width="40" height="30" rx="3" fill="#3B82F6"/>
-                                <rect x="115" y="135" width="30" height="20" rx="2" fill="#1E40AF"/>
-                                <rect x="105" y="160" width="50" height="5" rx="2" fill="#60A5FA"/>
-                                
+                                <rect x="110" y="130" width="40" height="30" rx="3" fill="#3B82F6" />
+                                <rect x="115" y="135" width="30" height="20" rx="2" fill="#1E40AF" />
+                                <rect x="105" y="160" width="50" height="5" rx="2" fill="#60A5FA" />
+
                                 <!-- Right hand: Creative (Palette) -->
-                                <circle cx="270" cy="140" r="18" fill="#8B5CF6"/>
-                                <circle cx="265" cy="135" r="4" fill="#EF4444"/>
-                                <circle cx="275" cy="135" r="4" fill="#10B981"/>
-                                <circle cx="270" cy="145" r="4" fill="#F59E0B"/>
-                                <circle cx="262" cy="142" r="3" fill="#EC4899"/>
-                                
+                                <circle cx="270" cy="140" r="18" fill="#8B5CF6" />
+                                <circle cx="265" cy="135" r="4" fill="#EF4444" />
+                                <circle cx="275" cy="135" r="4" fill="#10B981" />
+                                <circle cx="270" cy="145" r="4" fill="#F59E0B" />
+                                <circle cx="262" cy="142" r="3" fill="#EC4899" />
+
                                 <!-- Floating Career Icons -->
                                 <g transform="translate(80, 80)">
-                                    <rect x="0" y="0" width="40" height="40" rx="8" fill="white" stroke="#E5E7EB" stroke-width="2"/>
-                                    <path d="M 10 25 L 20 15 L 25 20 L 30 12" fill="none" stroke="#10B981" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <circle cx="30" cy="12" r="3" fill="#10B981"/>
+                                    <rect x="0" y="0" width="40" height="40" rx="8" fill="white" stroke="#E5E7EB"
+                                        stroke-width="2" />
+                                    <path d="M 10 25 L 20 15 L 25 20 L 30 12" fill="none" stroke="#10B981"
+                                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                                    <circle cx="30" cy="12" r="3" fill="#10B981" />
                                 </g>
-                                
+
                                 <g transform="translate(280, 60)">
-                                    <rect x="0" y="0" width="40" height="40" rx="8" fill="white" stroke="#E5E7EB" stroke-width="2"/>
-                                    <circle cx="20" cy="18" r="8" fill="none" stroke="#F59E0B" stroke-width="3"/>
-                                    <path d="M 26 24 L 32 30" fill="none" stroke="#F59E0B" stroke-width="3" stroke-linecap="round"/>
+                                    <rect x="0" y="0" width="40" height="40" rx="8" fill="white" stroke="#E5E7EB"
+                                        stroke-width="2" />
+                                    <circle cx="20" cy="18" r="8" fill="none" stroke="#F59E0B" stroke-width="3" />
+                                    <path d="M 26 24 L 32 30" fill="none" stroke="#F59E0B" stroke-width="3"
+                                        stroke-linecap="round" />
                                 </g>
-                                
+
                                 <g transform="translate(320, 150)">
-                                    <rect x="0" y="0" width="40" height="40" rx="8" fill="white" stroke="#E5E7EB" stroke-width="2"/>
-                                    <path d="M 10 30 L 15 20 L 20 25 L 30 10" fill="none" stroke="#8B5CF6" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <rect x="0" y="0" width="40" height="40" rx="8" fill="white" stroke="#E5E7EB"
+                                        stroke-width="2" />
+                                    <path d="M 10 30 L 15 20 L 20 25 L 30 10" fill="none" stroke="#8B5CF6"
+                                        stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
                                 </g>
                             </svg>
                         </div>
@@ -502,7 +564,8 @@
                                 <div class="w-8 h-8 rounded-full bg-green-400 border-2 border-white"></div>
                                 <div class="w-8 h-8 rounded-full bg-orange-400 border-2 border-white"></div>
                             </div>
-                            <p class="text-sm text-gray-600">Join <span class="font-semibold text-gray-900">10,000+</span> learners</p>
+                            <p class="text-sm text-gray-600">Join <span
+                                    class="font-semibold text-gray-900">10,000+</span> learners</p>
                         </div>
                     </div>
                 </div>
@@ -513,7 +576,8 @@
         <section id="step-assessment" class="max-w-3xl mx-auto section-hidden">
             <div class="bg-white rounded-3xl p-8 md:p-12 card-shadow mt-8">
                 <div class="flex items-center justify-between mb-8">
-                    <button onclick="prevQuestion()" class="text-gray-400 hover:text-gray-600 transition-colors" id="back-btn">
+                    <button onclick="prevQuestion()" class="text-gray-400 hover:text-gray-600 transition-colors"
+                        id="back-btn">
                         <i class="fas fa-chevron-left text-xl"></i>
                     </button>
                     <div class="flex-1 mx-8">
@@ -522,7 +586,8 @@
                             <span id="progress-text">12%</span>
                         </div>
                         <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div id="progress-bar" class="h-full bg-brand-blue rounded-full progress-fill" style="width: 12%"></div>
+                            <div id="progress-bar" class="h-full bg-brand-blue rounded-full progress-fill"
+                                style="width: 12%"></div>
                         </div>
                     </div>
                 </div>
@@ -537,7 +602,9 @@
                     </div>
 
                     <div class="flex justify-end">
-                        <button onclick="nextQuestion()" id="next-btn" class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed" disabled>
+                        <button onclick="nextQuestion()" id="next-btn"
+                            class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                            disabled>
                             Next <i class="fas fa-arrow-right ml-2"></i>
                         </button>
                     </div>
@@ -548,16 +615,18 @@
         <!-- STEP 3: Career Path Recommendation (No scores shown) -->
         <section id="step-results" class="max-w-4xl mx-auto section-hidden">
             <div class="bg-white rounded-3xl p-8 md:p-12 card-shadow mt-8 text-center animate-scale-in">
-                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-blue-50 flex items-center justify-center text-3xl animate-pulse">
+                <div
+                    class="w-20 h-20 mx-auto mb-6 rounded-full bg-blue-50 flex items-center justify-center text-3xl animate-pulse">
                     <i id="result-icon" class="fas fa-lightbulb text-brand-blue"></i>
                 </div>
-                
+
                 <h2 class="text-gray-500 font-medium mb-2">Recommended Career Path</h2>
                 <h1 id="career-title" class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                     Business & Entrepreneurship
                 </h1>
                 <p id="career-description" class="text-lg text-gray-600 max-w-2xl mx-auto mb-8 leading-relaxed">
-                    You show strong strategic thinking and opportunity identification skills. You naturally understand market dynamics and enjoy creating value through innovative solutions.
+                    You show strong strategic thinking and opportunity identification skills. You naturally understand
+                    market dynamics and enjoy creating value through innovative solutions.
                 </p>
 
                 <div class="bg-blue-50 rounded-2xl p-6 mb-8 max-w-lg mx-auto">
@@ -567,7 +636,8 @@
                     </div>
                 </div>
 
-                <button onclick="showRoles()" class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all">
+                <button onclick="showRoles()"
+                    class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all">
                     Explore Career Options <i class="fas fa-compass ml-2"></i>
                 </button>
             </div>
@@ -580,14 +650,17 @@
                     <i class="fas fa-map-signs text-brand-orange"></i>
                     <span class="text-sm font-medium text-gray-500">Recommended Paths in</span>
                 </div>
-                <h2 id="roles-domain-title" class="text-3xl font-bold text-gray-900 mb-8">Business & Entrepreneurship</h2>
+                <h2 id="roles-domain-title" class="text-3xl font-bold text-gray-900 mb-8">Business & Entrepreneurship
+                </h2>
 
                 <div id="roles-grid" class="grid md:grid-cols-3 gap-6 mb-8">
                     <!-- Injected by JS -->
                 </div>
 
                 <div class="flex justify-end">
-                    <button onclick="selectRoleAndContinue()" id="select-role-btn" class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all disabled:opacity-50" disabled>
+                    <button onclick="selectRoleAndContinue()" id="select-role-btn"
+                        class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all disabled:opacity-50"
+                        disabled>
                         Continue <i class="fas fa-arrow-right ml-2"></i>
                     </button>
                 </div>
@@ -612,7 +685,8 @@
                             <span id="roadmap-percent" class="font-bold text-brand-blue">0%</span>
                         </div>
                         <div class="h-2 bg-gray-200 rounded-full overflow-hidden">
-                            <div id="roadmap-progress-bar" class="h-full bg-brand-blue rounded-full progress-fill" style="width: 0%"></div>
+                            <div id="roadmap-progress-bar" class="h-full bg-brand-blue rounded-full progress-fill"
+                                style="width: 0%"></div>
                         </div>
                     </div>
 
@@ -633,7 +707,8 @@
         <!-- STEP 6: Mentors -->
         <section id="step-mentors" class="max-w-6xl mx-auto section-hidden">
             <div class="mt-8 text-center mb-12">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-4">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-100 text-green-700 text-sm font-medium mb-4">
                     <i class="fas fa-trophy"></i> Milestone Unlocked
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Connect with Industry Experts</h2>
@@ -645,7 +720,8 @@
             <div id="mentors-grid" class="grid md:grid-cols-3 gap-6 mb-12"></div>
 
             <div class="text-center">
-                <button onclick="continueRoadmap()" class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all">
+                <button onclick="continueRoadmap()"
+                    class="px-8 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all">
                     Continue Learning <i class="fas fa-arrow-right ml-2"></i>
                 </button>
             </div>
@@ -653,13 +729,17 @@
 
         <!-- STEP 7: Completion -->
         <section id="step-completion" class="max-w-3xl mx-auto section-hidden">
-            <div class="bg-white rounded-3xl p-8 md:p-12 card-shadow mt-8 text-center animate-scale-in relative overflow-hidden">
-                <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-blue via-brand-orange to-brand-success"></div>
-                
+            <div
+                class="bg-white rounded-3xl p-8 md:p-12 card-shadow mt-8 text-center animate-scale-in relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-brand-blue via-brand-orange to-brand-success">
+                </div>
+
                 <div class="w-32 h-32 mx-auto mb-6 relative">
                     <svg class="w-full h-full transform -rotate-90">
-                        <circle cx="64" cy="64" r="60" stroke="#E5E7EB" stroke-width="8" fill="none"/>
-                        <circle cx="64" cy="64" r="60" stroke="#4F8CFF" stroke-width="8" fill="none" stroke-dasharray="377" stroke-dashoffset="0" class="animate-[dash_1s_ease-out_forwards]"/>
+                        <circle cx="64" cy="64" r="60" stroke="#E5E7EB" stroke-width="8" fill="none" />
+                        <circle cx="64" cy="64" r="60" stroke="#4F8CFF" stroke-width="8" fill="none"
+                            stroke-dasharray="377" stroke-dashoffset="0" class="animate-[dash_1s_ease-out_forwards]" />
                     </svg>
                     <div class="absolute inset-0 flex items-center justify-center">
                         <i class="fas fa-check text-4xl text-brand-blue"></i>
@@ -669,16 +749,18 @@
                 <div class="inline-block px-6 py-2 rounded-full bg-blue-50 text-brand-blue font-semibold mb-4">
                     <i class="fas fa-award mr-2"></i>Career Ready
                 </div>
-                
+
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Congratulations!</h2>
-                <p class="text-xl text-gray-600 mb-8">You are now <span id="completion-role" class="text-brand-blue font-bold">Job-Ready</span></p>
+                <p class="text-xl text-gray-600 mb-8">You are now <span id="completion-role"
+                        class="text-brand-blue font-bold">Job-Ready</span></p>
 
                 <div class="bg-gray-50 rounded-2xl p-6 mb-8 text-left">
                     <h3 class="font-bold text-gray-900 mb-4">Skills Mastered</h3>
                     <div id="skills-tags" class="flex flex-wrap gap-2"></div>
                 </div>
 
-                <button onclick="showOpportunities()" class="px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
+                <button onclick="showOpportunities()"
+                    class="px-8 py-4 bg-brand-orange hover:bg-orange-600 text-white rounded-xl font-semibold text-lg transition-all transform hover:scale-105 shadow-lg">
                     View Opportunities <i class="fas fa-briefcase ml-2"></i>
                 </button>
             </div>
@@ -693,20 +775,38 @@
                 </div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-8">Real-World Opportunities</h2>
 
-                <div id="opportunities-list" class="space-y-4 mb-12"></div>
-
-                <div class="bg-gradient-to-r from-brand-blue to-brand-dark rounded-3xl p-8 text-white text-center">
-                    <h3 class="text-2xl font-bold mb-4">Keep Growing</h3>
-                    <p class="text-blue-100 mb-6">Join our premium network for exclusive opportunities and advanced mentorship.</p>
-                    <div class="flex justify-center gap-4">
-                        <button onclick="location.reload()" class="px-6 py-3 bg-white text-brand-blue rounded-xl font-semibold hover:bg-gray-100 transition-colors">
-                            New Assessment
-                        </button>
-                        <button class="px-6 py-3 bg-brand-orange text-white rounded-xl font-semibold hover:bg-orange-600 transition-colors">
-                            Upgrade to Pro
-                        </button>
+                <!-- Dynamic Location Search -->
+                <div class="mb-8 bg-white p-4 rounded-2xl card-shadow flex flex-col md:flex-row gap-4 items-center">
+                    <div class="flex-1 w-full relative">
+                        <i
+                            class="fas fa-map-marker-alt absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="job-location-input"
+                            placeholder="Enter preferred location (e.g. Remote, New York, London)..."
+                            class="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:border-brand-blue bg-gray-50" />
                     </div>
+                    <button onclick="fetchDynamicJobs()"
+                        class="w-full md:w-auto px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
+                        <i class="fas fa-search"></i> Find Jobs
+                    </button>
+                    <button onclick="getUserLocation()"
+                        class="w-full md:w-auto px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-semibold transition-all flex items-center justify-center gap-2"
+                        title="Use my current location">
+                        <i class="fas fa-location-arrow"></i> Location
+                    </button>
                 </div>
+
+                <div id="job-loading-indicator" class="hidden py-12 text-center">
+                    <i class="fas fa-circle-notch fa-spin text-4xl text-brand-blue mb-4"></i>
+                    <p class="text-gray-500 font-medium text-lg">Finding real-time opportunities...</p>
+                </div>
+
+                <div id="job-error-message"
+                    class="hidden py-8 text-center bg-red-50 rounded-2xl border border-red-100 mb-8">
+                    <i class="fas fa-exclamation-circle text-3xl text-red-500 mb-3"></i>
+                    <p class="text-red-700 font-medium" id="job-error-text">Failed to load jobs.</p>
+                </div>
+
+                <div id="opportunities-list" class="space-y-4 mb-12"></div>
             </div>
         </section>
 
@@ -714,4 +814,5 @@
 
     <script src="script.js"></script>
 </body>
+
 </html>
